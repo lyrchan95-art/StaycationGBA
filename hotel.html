@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店搜尋 - 週末遊</title>
+    <style>
+        /* Reuse styles from index.html and add hotel-specific styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft JhengHei", sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles (same as index.html) */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .results-count {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Hotels Grid */
+        .hotels-section {
+            padding: 2rem 0;
+        }
+        
+        .hotels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .hotel-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .hotel-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .distance-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .hotel-info {
+            padding: 1.5rem;
+        }
+        
+        .hotel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .hotel-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hotel-location {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .hotel-price {
+            text-align: right;
+        }
+        
+        .price-from {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        
+        .price-unit {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .hotel-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tag {
+            background: #f1f3f4;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+        .tag.infinity-pool {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .tag.family {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .tag.hot-spring {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .hotel-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .view-details {
+            display: block;
+            text-align: center;
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .view-details:hover {
+            background: #5a6fd8;
+        }
+        
+        /* Distance Legend */
+        .distance-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .color-0-50 { background: #4caf50; }
+        .color-50-100 { background: #ffeb3b; }
+        .color-100-150 { background: #ff9800; }
+        .color-150-200 { background: #f44336; }
+        
+        /* Footer (same as index.html) */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+            
+            .hotels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .distance-legend {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo">週末遊</div>
+                    <div class="tagline">離香港200公里內，發掘你最啱嘅週末假期</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="hotels.html" style="opacity: 1; border-bottom: 2px solid white;">酒店搜尋</a></li>
+                        <li><a href="#">城市攻略</a></li>
+                        <li><a href="#">旅遊博客</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>精選酒店</h1>
+            <div class="results-count">共找到 <strong>24</strong> 間符合條件嘅酒店</div>
+        </div>
+    </section>
+
+    <!-- Distance Legend -->
+    <div class="container">
+        <div class="distance-legend">
+            <div class="legend-item">
+                <div class="legend-color color-0-50"></div>
+                <span>0-50公里 (最近)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-50-100"></div>
+                <span>50-100公里</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-100-150"></div>
+                <span>100-150公里</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-150-200"></div>
+                <span>150-200公里 (最遠)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotels Grid -->
+    <section class="hotels-section">
+        <div class="container">
+            <div class="hotels-grid" id="hotelsGrid">
+                <!-- Hotel cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>關於週末遊</h3>
+                    <p>專為香港人而設嘅週末度假酒店搜尋平台，精選大灣區200公里內優質住宿。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>熱門城市</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">深圳</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">珠海</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">廣州</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">開平</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>聯絡我們</h3>
+                    <p>Email: info@zau1mut6jau4.com</p>
+                    <p>電話: +852 XXXX XXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 週末遊 - 版權所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hotel data repository
+        const hotelsData = [
+            {
+                id: 1,
+                name: "深圳星河麗思卡爾頓酒店",
+                city: "shenzhen",
+                location: "深圳福田區",
+                distance: 35,
+                price: 1200,
+                image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["無邊際泳池", "五星級", "情侶推薦"],
+                features: ["泳池", "水療", "餐廳"],
+                theme: ["infinity-pool", "couple"]
+            },
+            {
+                id: 2,
+                name: "珠海長隆橫琴灣酒店",
+                city: "zhuhai",
+                location: "珠海橫琴新區",
+                distance: 65,
+                price: 1500,
+                image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["主題公園", "親子樂園", "家庭推薦"],
+                features: ["水上樂園", "兒童俱樂部", "多間餐廳"],
+                theme: ["kids-club", "family"]
+            },
+            {
+                id: 3,
+                name: "廣州四季酒店",
+                city: "guangzhou",
+                location: "廣州天河區",
+                distance: 155,
+                price: 1600,
+                image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["無邊際泳池", "五星級", "城市景觀"],
+                features: ["天際泳池", "米其林餐廳", "水療"],
+                theme: ["infinity-pool", "couple"]
+            },
+            {
+                id: 4,
+                name: "開平碉樓民居客棧",
+                city: "kaiping",
+                location: "開平塘口鎮",
+                distance: 185,
+                price: 600,
+                image: "https://images.unsplash.com/photo-1555854871-d6dfc30e2bfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["世界遺產", "文化體驗", "特色民宿"],
+                features: ["傳統建築", "文化導賞", "農家菜"],
+                theme: ["instagram", "culture"]
+            },
+            {
+                id: 5,
+                name: "惠州金海灣喜來登度假酒店",
+                city: "huizhou",
+                location: "惠州惠東縣",
+                distance: 115,
+                price: 800,
+                image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["海灘度假", "溫泉", "家庭推薦"],
+                features: ["私人海灘", "溫泉", "兒童樂園"],
+                theme: ["hot-spring", "family"]
+            },
+            {
+                id: 6,
+                name: "東莞松山湖凱悅酒店",
+                city: "dongguan",
+                location: "東莞松山湖",
+                distance: 85,
+                price: 700,
+                image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["湖景", "高爾夫", "性價比高"],
+                features: ["高爾夫球場", "湖景餐廳", "會議設施"],
+                theme: ["relax", "business"]
+            },
+            {
+                id: 7,
+                name: "深圳大梅沙京基喜來登酒店",
+                city: "shenzhen",
+                location: "深圳鹽田區",
+                distance: 40,
+                price: 900,
+                image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["海灘", "家庭推薦", "度假村"],
+                features: ["私人海灘", "多個泳池", "兒童活動"],
+                theme: ["family", "beach"]
+            },
+            {
+                id: 8,
+                name: "珠海瑞吉酒店",
+                city: "zhuhai",
+                location: "珠海橫琴新區",
+                distance: 70,
+                price: 1800,
+                image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                tags: ["奢華", "無邊際泳池", "情侶推薦"],
+                features: ["天際酒吧", "管家服務", "設計師套房"],
+                theme: ["infinity-pool", "luxury", "couple"]
+            }
+        ];
+
+        // Function to get distance color class
+        function getDistanceColor(distance) {
+            if (distance <= 50) return 'color-0-50';
+            if (distance <= 100) return 'color-50-100';
+            if (distance <= 150) return 'color-100-150';
+            return 'color-150-200';
+        }
+
+        // Function to get tag class
+        function getTagClass(tag) {
+            if (tag.includes('無邊際泳池')) return 'tag infinity-pool';
+            if (tag.includes('親子') || tag.includes('家庭')) return 'tag family';
+            if (tag.includes('溫泉')) return 'tag hot-spring';
+            return 'tag';
+        }
+
+        // Function to render hotels
+        function renderHotels(hotels) {
+            const hotelsGrid = document.getElementById('hotelsGrid');
+            hotelsGrid.innerHTML = '';
+
+            hotels.forEach(hotel => {
+                const hotelCard = document.createElement('div');
+                hotelCard.className = 'hotel-card';
+                
+                hotelCard.innerHTML = `
+                    <div class="hotel-image" style="background-image: url('${hotel.image}')">
+                        <div class="distance-badge ${getDistanceColor(hotel.distance)}">
+                            ${hotel.distance}公里
+                        </div>
+                    </div>
+                    <div class="hotel-info">
+                        <div class="hotel-header">
+                            <div>
+                                <div class="hotel-name">${hotel.name}</div>
+                                <div class="hotel-location">${hotel.location}</div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-from">每晚由</div>
+                                <div class="price-amount">HK$${hotel.price}</div>
+                                <div class="price-unit">起</div>
+                            </div>
+                        </div>
+                        <div class="hotel-tags">
+                            ${hotel.tags.map(tag => `<span class="${getTagClass(tag)}">${tag}</span>`).join('')}
+                        </div>
+                        <div class="hotel-features">
+                            ${hotel.features.map(feature => `<span class="feature">✓ ${feature}</span>`).join('')}
+                        </div>
+                        <a href="#" class="view-details">查看詳情</a>
+                    </div>
+                `;
+                
+                hotelsGrid.appendChild(hotelCard);
+            });
+        }
+
+        // Function to filter hotels by city from URL parameter
+        function filterHotelsByCity() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const city = urlParams.get('city');
+            
+            if (city) {
+                const filteredHotels = hotelsData.filter(hotel => hotel.city === city);
+                renderHotels(filteredHotels);
+                
+                // Update results count
+                document.querySelector('.results-count').innerHTML = 
+                    `共找到 <strong>${filteredHotels.length}</strong> 間${getCityName(city)}嘅酒店`;
+            } else {
+                // Sort by distance and render all hotels
+                const sortedHotels = [...hotelsData].sort((a, b) => a.distance - b.distance);
+                renderHotels(sortedHotels);
+            }
+        }
+
+        // Helper function to get city Chinese name
+        function getCityName(cityCode) {
+            const cityNames = {
+                'shenzhen': '深圳',
+                'zhuhai': '珠海',
+                'guangzhou': '廣州',
+                'kaiping': '開平',
+                'huizhou': '惠州',
+                'dongguan': '東莞'
+            };
+            return cityNames[cityCode] || '';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            filterHotelsByCity();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>週末遊 - 離香港200公里內最正酒店精選</title>
+    <style href = "style.css"></style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo">週末遊</div>
+                    <div class="tagline">離香港200公里內，發掘你最啱嘅週末假期</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="hotels.html">酒店搜尋</a></li>
+                        <li><a href="assistant.html">AI旅游攻略</a></li>
+                        <li><a href="#">旅遊博客</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>探索大灣區最正週末度假酒店</h1>
+            <p>精選香港200公里範圍內嘅高質酒店，適合一家大細、情侶、朋友週末輕鬆出行</p>
+            <a href="hotels.html" class="cta-button">立即搜尋酒店</a>
+        </div>
+    </section>
+
+    <!-- Search & Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="destination">目的地</label>
+                    <select id="destination">
+                        <option value="">所有城市</option>
+                        <option value="shenzhen">深圳</option>
+                        <option value="zhuhai">珠海</option>
+                        <option value="guangzhou">廣州</option>
+                        <option value="kaiping">開平</option>
+                        <option value="huizhou">惠州</option>
+                        <option value="dongguan">東莞</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="travel-with">旅遊夥伴</label>
+                    <select id="travel-with">
+                        <option value="">所有類型</option>
+                        <option value="family">一家大細</option>
+                        <option value="couple">情侶</option>
+                        <option value="friends">朋友</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="theme">主題</label>
+                    <select id="theme">
+                        <option value="">所有主題</option>
+                        <option value="infinity-pool">無邊際泳池</option>
+                        <option value="kids-club">親子樂園</option>
+                        <option value="hot-spring">溫泉</option>
+                        <option value="instagram">文青打卡</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>&nbsp;</label>
+                    <button class="filter-button" onclick="window.location.href='hotels.html'">搜尋酒店</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cities Section -->
+    <section class="cities-section">
+        <div class="container">
+            <h2 class="section-title">精選熱門城市</h2>
+            <div class="cities-grid">
+                <!-- Shenzhen -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1576723362105-10023749e616?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>深圳</h3>
+                        <div class="city-distance">距離香港: 30-50公里</div>
+                        <div class="city-tags">
+                            <span class="tag">現代化</span>
+                            <span class="tag">購物天堂</span>
+                            <span class="tag">美食之都</span>
+                        </div>
+                        <p>現代化都市，吃喝玩樂一應俱全，最適合短途週末遊</p>
+                        <a href="hotels.html?city=shenzhen" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+                
+                <!-- Zhuhai -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1599396170196-309ed693a55b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>珠海</h3>
+                        <div class="city-distance">距離香港: 60-80公里</div>
+                        <div class="city-tags">
+                            <span class="tag">海濱城市</span>
+                            <span class="tag">主題公園</span>
+                            <span class="tag">海鮮美食</span>
+                        </div>
+                        <p>悠閒海濱假期，長隆海洋王國必去，適合家庭樂</p>
+                        <a href="hotels.html?city=zhuhai" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+                
+                <!-- Guangzhou -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1591862745752-00c409d2ee7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>廣州</h3>
+                        <div class="city-distance">距離香港: 140-160公里</div>
+                        <div class="city-tags">
+                            <span class="tag">美食天堂</span>
+                            <span class="tag">歷史文化</span>
+                            <span class="tag">購物</span>
+                        </div>
+                        <p>千年商都，點心美食聞名，體驗嶺南文化之旅</p>
+                        <a href="hotels.html?city=guangzhou" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hidden Gems Section -->
+    <section class="cities-section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">隱世秘境推薦</h2>
+            <div class="cities-grid">
+                <!-- Kaiping -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1543413883-2f40f5ed7d5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>開平</h3>
+                        <div class="city-distance">距離香港: 180-200公里</div>
+                        <div class="city-tags">
+                            <span class="tag">世界遺產</span>
+                            <span class="tag">碉樓</span>
+                            <span class="tag">文化之旅</span>
+                        </div>
+                        <p>探索世界文化遺產碉樓，獨特民宿體驗，攝影愛好者天堂</p>
+                        <a href="hotels.html?city=kaiping" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+                
+                <!-- Huizhou -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>惠州</h3>
+                        <div class="city-distance">距離香港: 100-120公里</div>
+                        <div class="city-tags">
+                            <span class="tag">溫泉</span>
+                            <span class="tag">海灘</span>
+                            <span class="tag">自然風光</span>
+                        </div>
+                        <p>隱世溫泉與藍色海灣，逃離繁囂嘅最佳選擇</p>
+                        <a href="hotels.html?city=huizhou" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+                
+                <!-- Dongguan -->
+                <div class="city-card">
+                    <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="city-info">
+                        <h3>東莞</h3>
+                        <div class="city-distance">距離香港: 80-100公里</div>
+                        <div class="city-tags">
+                            <span class="tag">性價比高</span>
+                            <span class="tag">高爾夫</span>
+                            <span class="tag">輕鬆度假</span>
+                        </div>
+                        <p>性價比之選，五星級酒店享受，設施完善適合放鬆</p>
+                        <a href="hotels.html?city=dongguan" class="view-hotels">查看酒店 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">點解選擇週末遊？</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>距離優先排序</h3>
+                    <p>所有酒店按距離香港遠近排列，輕鬆計劃短途旅行</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏨</div>
+                    <h3>真實用戶評價</h3>
+                    <p>來自香港家庭、情侶、朋友的親身體驗分享</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚢</div>
+                    <h3>交通指引詳細</h3>
+                    <p>提供船、高鐵、自駕等詳細交通資訊</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💝</div>
+                    <h3>主題分類清晰</h3>
+                    <p>按家庭、情侶、朋友等不同需求精選推薦</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>關於週末遊</h3>
+                    <p>專為香港人而設嘅週末度假酒店搜尋平台，精選大灣區200公里內優質住宿。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>熱門城市</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">深圳</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">珠海</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">廣州</a></li>
+                        <li><a href="#" style="color: #aaa; text-decoration: none;">開平</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>聯絡我們</h3>
+                    <p>Email: staycationgba_HK@gmail.com</p>
+                    <p>電話: +852 XXXX XXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 週末遊 - 版權所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButton = document.querySelector('.filter-button');
+            const destinationSelect = document.getElementById('destination');
+            
+            filterButton.addEventListener('click', function() {
+                const destination = destinationSelect.value;
+                if (destination) {
+                    window.location.href = `hotels.html?city=${destination}`;
+                } else {
+                    window.location.href = 'hotels.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

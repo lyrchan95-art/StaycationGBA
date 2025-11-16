@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI酒店助手 - 週末遊</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="assistant-container">
+        <!-- Header -->
+        <header class="assistant-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo">週末遊 AI助手</div>
+                    <div class="tagline">智能推薦最啱你心水嘅酒店</div>
+                </div>
+                <div class="gamification-bar">
+                    <div class="points-display">
+                        <span class="points-label">探索積分:</span>
+                        <span class="points-value" id="userPoints">0</span>
+                    </div>
+                    <div class="level-display">
+                        <span class="level-label">等級:</span>
+                        <span class="level-value" id="userLevel">新手探險家</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-steps">
+                <div class="step active" data-step="1">旅行類型</div>
+                <div class="step" data-step="2">預算範圍</div>
+                <div class="step" data-step="3">設施偏好</div>
+                <div class="step" data-step="4">目的地</div>
+                <div class="step" data-step="5">結果</div>
+            </div>
+        </div>
+
+        <!-- AI Chat Interface -->
+        <div class="ai-interface">
+            <!-- Question Section -->
+            <div class="question-section" id="questionSection">
+                <div class="ai-avatar">
+                    <div class="avatar">🤖</div>
+                    <div class="ai-name">週末遊助手</div>
+                </div>
+                <div class="question-content">
+                    <h3 id="currentQuestion">你好！我係你嘅AI酒店助手，等我幫你搵最啱心水嘅週末酒店！</h3>
+                    <p id="questionDescription">回答幾個簡單問題，就可以獲得個人化推薦同賺取探索積分！</p>
+                </div>
+            </div>
+
+            <!-- Options Section -->
+            <div class="options-section" id="optionsSection">
+                <!-- Step 1: Travel Type -->
+                <div class="options-grid step-content" id="step1">
+                    <div class="option-card" data-value="family">
+                        <div class="option-icon">👨‍👩‍👧‍👦</div>
+                        <h4>一家大細</h4>
+                        <p>親子活動、兒童設施、家庭套房</p>
+                        <div class="points-badge">+10 分</div>
+                    </div>
+                    <div class="option-card" data-value="couple">
+                        <div class="option-icon">💑</div>
+                        <h4>情侶浪漫</h4>
+                        <p>無邊際泳池、靚景、浪漫晚餐</p>
+                        <div class="points-badge">+10 分</div>
+                    </div>
+                    <div class="option-card" data-value="friends">
+                        <div class="option-icon">👥</div>
+                        <h4>朋友聚會</h4>
+                        <p>多人房、娛樂設施、近景點</p>
+                        <div class="points-badge">+10 分</div>
+                    </div>
+                    <div class="option-card" data-value="solo">
+                        <div class="option-icon">🧘‍♂️</div>
+                        <h4>個人放鬆</h4>
+                        <p>水療、安靜環境、文青打卡</p>
+                        <div class="points-badge">+10 分</div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Budget -->
+                <div class="options-grid step-content" id="step2" style="display: none;">
+                    <div class="option-card" data-value="budget">
+                        <div class="option-icon">💰</div>
+                        <h4>經濟實惠</h4>
+                        <p>HK$500-800/晚</p>
+                        <div class="budget-bar">
+                            <div class="budget-fill low"></div>
+                        </div>
+                        <div class="points-badge">+15 分</div>
+                    </div>
+                    <div class="option-card" data-value="medium">
+                        <div class="option-icon">💸</div>
+                        <h4>中等預算</h4>
+                        <p>HK$800-1,500/晚</p>
+                        <div class="budget-bar">
+                            <div class="budget-fill medium"></div>
+                        </div>
+                        <div class="points-badge">+15 分</div>
+                    </div>
+                    <div class="option-card" data-value="luxury">
+                        <div class="option-icon">💎</div>
+                        <h4>豪華享受</h4>
+                        <p>HK$1,500+/晚</p>
+                        <div class="budget-bar">
+                            <div class="budget-fill high"></div>
+                        </div>
+                        <div class="points-badge">+15 分</div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Facilities -->
+                <div class="options-grid step-content" id="step3" style="display: none;">
+                    <div class="option-card multi-select" data-value="pool">
+                        <div class="option-icon">🏊‍♂️</div>
+                        <h4>泳池</h4>
+                        <p>無邊際/室外/室內泳池</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                    <div class="option-card multi-select" data-value="spa">
+                        <div class="option-icon">💆‍♀️</div>
+                        <h4>水療按摩</h4>
+                        <p>按摩、桑拿、水療設施</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                    <div class="option-card multi-select" data-value="kids">
+                        <div class="option-icon">🎠</div>
+                        <h4>兒童樂園</h4>
+                        <p>兒童俱樂部、遊樂設施</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                    <div class="option-card multi-select" data-value="gym">
+                        <div class="option-icon">💪</div>
+                        <h4>健身設施</h4>
+                        <p>健身房、瑜伽室</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                    <div class="option-card multi-select" data-value="dining">
+                        <div class="option-icon">🍽️</div>
+                        <h4>多間餐廳</h4>
+                        <p>自助餐、特色餐廳</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                    <div class="option-card multi-select" data-value="beach">
+                        <div class="option-icon">🏖️</div>
+                        <h4>私人海灘</h4>
+                        <p>海灘 access、水上活動</p>
+                        <div class="checkmark">✓</div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Destination -->
+                <div class="options-grid step-content" id="step4" style="display: none;">
+                    <div class="option-card" data-value="shenzhen">
+                        <div class="option-icon">🏙️</div>
+                        <h4>深圳</h4>
+                        <p>30-50公里 • 現代化都市</p>
+                        <div class="distance-tag nearby">最近</div>
+                        <div class="points-badge">+20 分</div>
+                    </div>
+                    <div class="option-card" data-value="zhuhai">
+                        <div class="option-icon">🌊</div>
+                        <h4>珠海</h4>
+                        <p>60-80公里 • 海濱度假</p>
+                        <div class="distance-tag medium">中等</div>
+                        <div class="points-badge">+20 分</div>
+                    </div>
+                    <div class="option-card" data-value="guangzhou">
+                        <div class="option-icon">🍜</div>
+                        <h4>廣州</h4>
+                        <p>140-160公里 • 美食之都</p>
+                        <div class="distance-tag far">較遠</div>
+                        <div class="points-badge">+20 分</div>
+                    </div>
+                    <div class="option-card" data-value="kaiping">
+                        <div class="option-icon">🏯</div>
+                        <h4>開平</h4>
+                        <p>180-200公里 • 文化遺產</p>
+                        <div class="distance-tag farthest">最遠</div>
+                        <div class="points-badge">+20 分</div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Results -->
+                <div class="results-section step-content" id="step5" style="display: none;">
+                    <div class="results-header">
+                        <div class="achievement-badge">
+                            <div class="badge-icon">🏆</div>
+                            <div class="badge-text">酒店探索專家</div>
+                        </div>
+                        <h3>為你推薦以下完美酒店！</h3>
+                        <p>根據你的偏好，我們找到了最匹配的選擇</p>
+                    </div>
+
+                    <div class="recommended-hotels" id="recommendedHotels">
+                        <!-- Hotels will be populated by JavaScript -->
+                    </div>
+
+                    <div class="results-summary">
+                        <div class="match-score">
+                            <div class="score-circle">
+                                <span class="score-value" id="matchScore">95%</span>
+                                <span class="score-label">匹配度</span>
+                            </div>
+                        </div>
+                        <div class="points-earned">
+                            <h4>今次探索獲得</h4>
+                            <div class="total-points" id="totalPoints">0</div>
+                            <div class="points-label">探索積分</div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-secondary" id="restartQuiz">重新開始</button>
+                        <button class="btn-primary" id="viewAllHotels">查看所有推薦</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-section">
+                <button class="btn-outline" id="prevBtn" style="display: none;">上一題</button>
+                <button class="btn-primary" id="nextBtn" disabled>開始探索</button>
+            </div>
+        </div>
+
+        <!-- Gamification Elements -->
+        <div class="floating-points" id="floatingPoints"></div>
+        <div class="confetti-container" id="confettiContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
