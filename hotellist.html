@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hotels within 200km of Hong Kong </title>
+  <title>Hotels within 200km of Hong Kong (excluding HK)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body { font-family: system-ui; background:#0f1220; color:#fff; margin:0; }
@@ -27,14 +27,14 @@
 
   <main class="grid" id="grid"></main>
 
-  <!-- Load dataset -->
+  <!-- Load dataset first -->
   <script src="hotellist.js"></script>
   <script>
     const grid = document.getElementById('grid');
 
     function formatHKD(n){ return `HKD ${n.toLocaleString('en-US')}`; }
 
-    // Sort hotels by cost high → low
+    // ✅ Define sortedHotels AFTER hotels is loaded
     const sortedHotels = [...hotels].sort((a,b)=>b.costHKD - a.costHKD);
 
     sortedHotels.forEach(h=>{

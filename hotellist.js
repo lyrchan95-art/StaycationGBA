@@ -1,5 +1,4 @@
-
-constant = [
+constant hotels = [
 {name:"Mandarin Oriental Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219795/mandarin-oriental-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.9/5", ratingValue:4.9, costHKD:3000, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/135791113.jpg"},
 {name:"Four Seasons Hotel Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219794/four-seasons-hotel-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.8/5", ratingValue:4.8, costHKD:2500, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
 {name:"The Ritz-Carlton Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219793/the-ritz-carlton-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
