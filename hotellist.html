@@ -2,319 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hotels within 200km of Hong Kong (excluding HK)</title>
+  <title>Hotels within 200km of Hong Kong </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root{
-      --bg:#0f1220; --panel:#171a2b; --card:#1f2338; --text:#e7e9f5; --muted:#a9aec7;
-      --accent:#6ea8fe; --accent2:#7bd389; --warn:#ffb454;
-    }
-    body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
-      background:linear-gradient(180deg,#0c0f1a 0%, #121528 100%); color:var(--text);
-    }
-    header{
-      padding:24px; border-bottom:1px solid #232743; background:var(--panel);
-      position:sticky; top:0; z-index:10;
-    }
-    h1{ margin:0 0 8px; font-size:20px; }
-    .sub{ color:var(--muted); font-size:14px; margin-top:4px; }
-    .controls{
-      display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap:12px; margin-top:16px;
-    }
-    .input, .select, .btn{
-      background:var(--card); border:1px solid #2a2f52; color:var(--text); border-radius:8px;
-      padding:10px 12px; font-size:14px; outline:none;
-    }
-    .btn{ cursor:pointer; transition:transform .04s ease, background .2s ease; }
-    .btn:hover{ background:#252a47; }
-    .btn:active{ transform:scale(.98); }
-    .grid{
-      display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
-      gap:16px; padding:20px;
-    }
-    .card{
-      background:linear-gradient(180deg,#202646 0%, #1a1f3a 100%);
-      border:1px solid #2a2f52; border-radius:14px; overflow:hidden; position:relative;
-      box-shadow:0 6px 20px rgba(0,0,0,.28);
-      transition:transform .12s ease, box-shadow .2s ease;
-    }
-    .card:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,.35); }
-    .rank{
-      position:absolute; top:10px; left:10px; background:#2a3056; color:#cbd2ff;
-      border:1px solid #3a4282; padding:4px 8px; font-size:12px; border-radius:10px;
-    }
-    .img{
-      height:140px; background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), transparent 40%),
-        linear-gradient(135deg, #2a3160, #1b2147);
-      display:flex; align-items:flex-end; justify-content:flex-end;
-    }
-    .priceTag{
-      margin:10px; background:#27305e; border:1px solid #3b4aa2; color:#d9e2ff;
-      padding:6px 10px; font-size:13px; border-radius:10px;
-    }
-    .body{ padding:14px; }
-    .name{ font-weight:600; font-size:16px; margin:4px 0 2px; }
-    .rating{ color:#ffe58f; font-size:13px; }
-    .address{ color:var(--muted); font-size:13px; margin-top:6px; }
-    .coords{ color:#8fb2ff; font-size:12px; margin-top:4px; }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .chip{ background:#233055; color:#cfe2ff; border:1px solid #31447e; font-size:12px; padding:4px 8px; border-radius:999px; }
-    .actions{ display:flex; gap:8px; margin-top:12px; }
-    .linkBtn{
-      flex:1; background:linear-gradient(90deg, #3b6cf5, #5c89ff);
-      border:none; color:white; border-radius:10px; padding:10px; cursor:pointer; font-weight:600;
-    }
-    .secondaryBtn{
-      flex:1; background:#2a304f; border:1px solid #3b4470; color:#cdd6ff;
-      border-radius:10px; padding:10px; cursor:pointer; font-weight:600;
-    }
-    .hidden{ display:none; }
-    footer{ color:#98a0c0; font-size:12px; padding:0 20px 20px; }
-    .legend{ padding: 0 20px 10px; color:#9aa5cf; font-size:13px; }
-    .badge{ padding:2px 8px; background:#24335d; border:1px solid #33457f; border-radius:999px; }
+    body { font-family: system-ui; background:#0f1220; color:#fff; margin:0; }
+    header { padding:20px; background:#171a2b; position:sticky; top:0; }
+    h1 { margin:0; font-size:20px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; padding:20px; }
+    .card { background:#1f2338; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.3); }
+    .card img { width:100%; height:160px; object-fit:cover; }
+    .body { padding:12px; }
+    .name { font-weight:600; font-size:16px; margin-bottom:4px; }
+    .rating { color:#ffe58f; font-size:13px; }
+    .address { color:#a9aec7; font-size:13px; margin-top:6px; }
+    .price { margin-top:8px; font-size:14px; color:#6ea8fe; }
+    .actions { margin-top:10px; }
+    .actions a { display:inline-block; background:#3b6cf5; color:#fff; padding:8px 12px; border-radius:6px; text-decoration:none; font-size:13px; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Hotels within 200km of Hong Kong (excluding Hong Kong)</h1>
-    <div class="sub">Interactive cards ranked by highest cost to lowest. Use search, city filter, and toggles to refine.</div>
-    <div class="controls">
-      <input id="search" class="input" type="search" placeholder="Search by hotel or address..." />
-      <select id="city" class="select">
-        <option value="">All cities</option>
-        <option>Macau</option>
-        <option>Shenzhen</option>
-        <option>Guangzhou</option>
-        <option>Zhuhai</option>
-        <option>Dongguan</option>
-      </select>
-      <select id="sort" class="select">
-        <option value="costDesc">Sort: Cost (High → Low)</option>
-        <option value="costAsc">Cost: Low → High</option>
-        <option value="ratingDesc">Rating: High → Low</option>
-        <option value="nameAsc">Name: A → Z</option>
-      </select>
-      <button id="reset" class="btn">Reset filters</button>
-    </div>
+    <h1>Hotels within 200km of Hong Kong (excluding HK)</h1>
   </header>
-
-<div class="img">
-  <img src="${h.img}" alt="${h.name}" style="width:100%;height:140px;object-fit:cover;" />
-  <div class="priceTag">${formatHKD(h.costHKD)} / night</div>
-</div>
-
-  <div class="legend">
-    <span class="badge">Tip</span> Click “Details” on any card to reveal coordinates and extra info.
-  </div>
 
   <main class="grid" id="grid"></main>
 
-  <footer>
-    Note: Costs are approximate nightly rates and can vary by date. Trip.com links open the hotel’s booking page or search listing.
-  </footer>
-
+  <!-- Load dataset -->
+  <script src="hotellist.js"></script>
   <script>
-    // Paste or extend the full 50-hotel dataset here. Sorted dynamically by controls.
-    // Format: name, url, city, coords {lat, lng}, address, ratingText, ratingValue, costHKD
-    const hotels = [
-      // MACAU
-{name:"Mandarin Oriental Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219795/mandarin-oriental-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.9/5", ratingValue:4.9, costHKD:3000, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/135791113.jpg"},
-{name:"Four Seasons Hotel Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219794/four-seasons-hotel-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.8/5", ratingValue:4.8, costHKD:2500, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"The Ritz-Carlton Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219793/the-ritz-carlton-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
-{name:"Legend Palace Hotel", url:"https://www.trip.com/hotels/macau-hotel-detail-219783/legend-palace-hotel/", city:"Macau", coords:{lat:22.198, lng:113.543}, address:"Fisherman’s Wharf, Macau", ratingText:"5.0/5", ratingValue:5.0, costHKD:2400, img:"https://media-cdn.tripadvisor.com/media/photo-s/1a/2b/3c/legend-palace.jpg"},
-{name:"Galaxy Macau", url:"https://www.trip.com/hotels/macau-hotel-detail-219777/galaxy-macau/", city:"Macau", coords:{lat:22.147, lng:113.558}, address:"Cotai Strip, Macau", ratingText:"4.5/5", ratingValue:4.5, costHKD:2200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/987654321.jpg"},
-{name:"Four Seasons Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"The Venetian Macao", url:"https://www.trip.com/hotels/macau-hotel-detail-219776/the-venetian-macao/", city:"Macau", coords:{lat:22.147, lng:113.559}, address:"Cotai Strip, Macau", ratingText:"4.7/5", ratingValue:4.7, costHKD:2000, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
-{name:"Ritz-Carlton Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219785/the-ritz-carlton-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:2000, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"The Langham Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219791/the-langham-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:1900, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/135791113.jpg"},
-{name:"Grand Hyatt Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219796/grand-hyatt-guangzhou/", city:"Guangzhou", coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.6/5", ratingValue:4.6, costHKD:1800, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"InterContinental Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219788/intercontinental-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:113.973}, address:"Nanshan District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1800, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/987654321.jpg"},
-{name:"Studio City Macau", url:"https://www.trip.com/hotels/macau-hotel-detail-219781/studio-city-macau/", city:"Macau", coords:{lat:22.147, lng:113.559}, address:"Cotai Strip, Macau", ratingText:"4.5/5", ratingValue:4.5, costHKD:1700, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
-{name:"JW Marriott Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219790/jw-marriott-hotel-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1700, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"Shangri-La Hotel Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219792/shangri-la-hotel-guangzhou/", city:"Guangzhou", coords:{lat:23.106, lng:113.362}, address:"Haizhu District, Guangzhou", ratingText:"4.5/5", ratingValue:4.5, costHKD:1600, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/135791113.jpg"},
-{name:"Hilton Shenzhen Futian", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219789/hilton-shenzhen-futian/", city:"Shenzhen", coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1600, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/987654321.jpg"},
-{name:"Shangri-La Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219787/shangri-la-hotel-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.117}, address:"Luohu District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1500, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
-{name:"Pullman Guangzhou Baiyun Airport", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219797/pullman-guangzhou-baiyun-airport/", city:"Guangzhou", coords:{lat:23.392, lng:113.298}, address:"Baiyun Airport, Guangzhou", ratingText:"4.5/5", ratingValue:4.5, costHKD:1200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
-{name:"St. Regis Zhuhai", url:"https://www.trip.com/hotels/zhuhai-hotel-detail-219799/st-regis-zhuhai/", city:"Zhuhai", coords:{lat:22.207, lng:113.567}, address:"Zhuhai", ratingText:"4.8/5", ratingValue:4.8, costHKD:1200, img:"https://cache.marriott.com/content/dam/marriott-renditions/ZUHXR/zuhxr-exterior-123.jpg"},
--
-
-      // SHENZHEN
-      {name:"Four Seasons Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200},
-      {name:"The Langham Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219791/the-langham-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:1900},
-      {name:"Ritz-Carlton Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219785/the-ritz-carlton-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:2000},
-      {name:"JW Marriott Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219790/jw-marriott-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1700},
-      {name:"InterContinental Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219788/intercontinental-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:113.973}, address:"Nanshan District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1800},
-      {name:"Hilton Shenzhen Futian", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219789/hilton-shenzhen-futian/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1600},
-      {name:"Shangri-La Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219787/shangri-la-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.117}, address:"Luohu District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1500},
-
-      // GUANGZHOU
-  {name:"Mandarin Oriental Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219795/mandarin-oriental-guangzhou/", city:"Guangzhou",
-        coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.9/5", ratingValue:4.9, costHKD:3000},
-  {name:"Four Seasons Hotel Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219794/four-seasons-hotel-guangzhou/", city:"Guangzhou",
-        coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.8/5", ratingValue:4.8, costHKD:2500},
-  {name:"The Ritz-Carlton Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219793/the-ritz-carlton-guangzhou/", city:"Guangzhou",
-        coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200},
-  {name:"Legend Palace Hotel", url:"https://www.trip.com/hotels/macau-hotel-detail-219783/legend-palace-hotel/", city:"Macau",
-        coords:{lat:22.198, lng:113.543}, address:"Fisherman’s Wharf, Macau", ratingText:"5.0/5", ratingValue:5.0, costHKD:2400},
-  {name:"Galaxy Macau", url:"https://www.trip.com/hotels/macau-hotel-detail-219777/galaxy-macau/", city:"Macau",
-        coords:{lat:22.147, lng:113.558}, address:"Cotai Strip, Macau", ratingText:"4.5/5", ratingValue:4.5, costHKD:2200},
-  {name:"Four Seasons Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200},
-  {name:"The Venetian Macao", url:"https://www.trip.com/hotels/macau-hotel-detail-219776/the-venetian-macao/", city:"Macau",
-        coords:{lat:22.147, lng:113.559}, address:"Cotai Strip, Macau", ratingText:"4.7/5", ratingValue:4.7, costHKD:2000},
-  {name:"Ritz-Carlton Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219785/the-ritz-carlton-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:2000},
-  {name:"The Langham Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219791/the-langham-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:1900},
-  {name:"Grand Hyatt Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219796/grand-hyatt-guangzhou/", city:"Guangzhou",
-        coords:{lat:23.119, lng:113.322}, address:"Tianhe District, Guangzhou", ratingText:"4.6/5", ratingValue:4.6, costHKD:1800},
-  {name:"InterContinental Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219788/intercontinental-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:113.973}, address:"Nanshan District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1800},
-  {name:"Studio City Macau", url:"https://www.trip.com/hotels/macau-hotel-detail-219781/studio-city-macau/", city:"Macau",
-        coords:{lat:22.147, lng:113.559}, address:"Cotai Strip, Macau", ratingText:"4.5/5", ratingValue:4.5, costHKD:1700},
-  {name:"JW Marriott Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219790/jw-marriott-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.6/5", ratingValue:4.6, costHKD:1700},
-  {name:"Shangri-La Hotel Guangzhou", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219792/shangri-la-hotel-guangzhou/", city:"Guangzhou",
-        coords:{lat:23.106, lng:113.362}, address:"Haizhu District, Guangzhou", ratingText:"4.5/5", ratingValue:4.5, costHKD:1600},
-  {name:"Hilton Shenzhen Futian", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219789/hilton-shenzhen-futian/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1600},
-  {name:"Shangri-La Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219787/shangri-la-hotel-shenzhen/", city:"Shenzhen",
-        coords:{lat:22.533, lng:114.117}, address:"Luohu District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1500},
-  {name:"Pullman Guangzhou Baiyun Airport", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219797/pullman-guangzhou-baiyun-airport/", city:"Guangzhou",
-        coords:{lat:23.392, lng:113.298}, address:"Baiyun Airport, Guangzhou", ratingText:"4.5/5", ratingValue:4.5, costHKD:1200},
-  {name:"St. Regis Zhuhai", url:"https://www.trip.com/hotels/zhuhai-hotel-detail-219799/st-regis-zhuhai/", city:"Zhuhai",
-        coords:{lat:22.207, lng:113.567}, address:"Zhuhai", ratingText:"4.8/5", ratingValue:4.8, costHKD:1200},
-  {name:"Hyatt Regency Zhuhai", url:"https://www.trip.com/hotels/zhuhai-hotel-detail-219798/hyatt-regency-zhuhai/", city:"Zhuhai",
-        coords:{lat:22.207, lng:113.567}, address:"Zhuhai", ratingText:"4.6/5", ratingValue:4.6, costHKD:800},
-  {name:"Hyatt Regency Dongguan", url:"https://www.trip.com/hotels/dongguan-hotel-detail-374631/hyatt-regency-dongguan/", city:"Dongguan",
-        coords:{lat:23.020, lng:113.751}, address:"Songshan Lake, Dongguan", ratingText:"4.6/5", ratingValue:4.6, costHKD:800}
-
-      // Add more entries to reach 50 as needed; the page will handle sorting & filtering dynamically.
-      // If you have the remaining hotels list, paste them using the same structure.
-    ];
-
-    // State & UI logic
     const grid = document.getElementById('grid');
-    const search = document.getElementById('search');
-    const city = document.getElementById('city');
-    const sort = document.getElementById('sort');
-    const reset = document.getElementById('reset');
 
     function formatHKD(n){ return `HKD ${n.toLocaleString('en-US')}`; }
 
-    function sortHotels(list, mode){
-      const arr = [...list];
-      switch(mode){
-        case 'costAsc': arr.sort((a,b)=>a.costHKD-b.costHKD); break;
-        case 'costDesc': arr.sort((a,b)=>b.costHKD-a.costHKD); break;
-        case 'ratingDesc': arr.sort((a,b)=>b.ratingValue-a.ratingValue || b.costHKD-a.costHKD); break;
-        case 'nameAsc': arr.sort((a,b)=>a.name.localeCompare(b.name)); break;
-        default: arr.sort((a,b)=>b.costHKD-a.costHKD);
-      }
-      return arr;
-    }
+    // Sort hotels by cost high → low
+    const sortedHotels = [...hotels].sort((a,b)=>b.costHKD - a.costHKD);
 
-    function filterHotels(){
-      const q = search.value.trim().toLowerCase();
-      const c = city.value.trim();
-      let visible = hotels.filter(h=>{
-        const inCity = !c || h.city === c;
-        const inText = !q || h.name.toLowerCase().includes(q) || h.address.toLowerCase().includes(q);
-        return inCity && inText;
-      });
-      visible = sortHotels(visible, sort.value);
-      render(visible);
-    }
-
-    function render(list){
-      grid.innerHTML = '';
-      list.forEach((h, i)=>{
-        const card = document.createElement('article');
-        card.className = 'card';
-
-        const img = document.createElement('div');
-        img.className = 'img';
-        const priceTag = document.createElement('div');
-        priceTag.className = 'priceTag';
-        priceTag.textContent = formatHKD(h.costHKD) + ' / night';
-        img.appendChild(priceTag);
-
-        const rank = document.createElement('div');
-        rank.className = 'rank';
-        rank.textContent = `#${i+1} by cost`;
-
-        const body = document.createElement('div');
-        body.className = 'body';
-
-        const name = document.createElement('div');
-        name.className = 'name';
-        name.textContent = h.name;
-
-        const rating = document.createElement('div');
-        rating.className = 'rating';
-        rating.textContent = `Rating: ${h.ratingText}`;
-
-        const address = document.createElement('div');
-        address.className = 'address';
-        address.textContent = `${h.address} • ${h.city}`;
-
-        const coords = document.createElement('div');
-        coords.className = 'coords hidden';
-        coords.textContent = `Coordinates: ${h.coords.lat.toFixed(3)}°N, ${h.coords.lng.toFixed(3)}°E`;
-
-        const chips = document.createElement('div');
-        chips.className = 'chips';
-        const chip1 = document.createElement('span');
-        chip1.className = 'chip';
-        chip1.textContent = 'Within 200km of HK';
-        const chip2 = document.createElement('span');
-        chip2.className = 'chip';
-        chip2.textContent = h.city;
-        chips.append(chip1, chip2);
-
-        const actions = document.createElement('div');
-        actions.className = 'actions';
-        const linkBtn = document.createElement('button');
-        linkBtn.className = 'linkBtn';
-        linkBtn.textContent = 'Open Trip.com';
-        linkBtn.addEventListener('click', ()=> window.open(h.url, '_blank'));
-
-        const detailBtn = document.createElement('button');
-        detailBtn.className = 'secondaryBtn';
-        detailBtn.textContent = 'Details';
-        detailBtn.addEventListener('click', ()=>{
-          coords.classList.toggle('hidden');
-          detailBtn.textContent = coords.classList.contains('hidden') ? 'Details' : 'Hide details';
-        });
-
-        actions.append(linkBtn, detailBtn);
-        body.append(name, rating, address, chips, coords, actions);
-
-        card.append(rank, img, body);
-        grid.append(card);
-      });
-    }
-
-    // Events
-    search.addEventListener('input', filterHotels);
-    city.addEventListener('change', filterHotels);
-    sort.addEventListener('change', filterHotels);
-    reset.addEventListener('click', ()=>{
-      search.value=''; city.value=''; sort.value='costDesc'; filterHotels();
+    sortedHotels.forEach(h=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${h.img}" alt="${h.name}">
+        <div class="body">
+          <div class="name">${h.name}</div>
+          <div class="rating">Rating: ${h.ratingText}</div>
+          <div class="address">${h.address} • ${h.city}</div>
+          <div class="price">${formatHKD(h.costHKD)} / night</div>
+          <div class="actions"><a href="${h.url}" target="_blank">Book on Trip.com</a></div>
+        </div>
+      `;
+      grid.appendChild(card);
     });
-
-    // Initial render (sorted by highest cost to lowest)
-    sort.value = 'costDesc';
-    filterHotels();
   </script>
 </body>
 </html>
