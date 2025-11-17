@@ -404,7 +404,7 @@ class HotelAssistant {
     }
 
     viewAllHotels() {
-        window.location.href = 'hotels.html';
+        window.location.href = 'hotel.html';
     }
 }
 
