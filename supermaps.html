@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>精選酒店</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h3>酒店地圖</h3>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map centered on first location
+    var map = L.map('map').setView([40.7128, -74.0060], 4); // Example: New York
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Coordinates for pins
+    var locations = [
+    { coords: [22.3964, 114.1095], name: "深圳柏悅酒店" },
+    { coords: [22.1890, 113.5390], name: "澳門美高梅酒店" },
+    { coords: [23.1190, 113.3220], name: "廣州康萊德酒店" },
+    { coords: [22.3177, 114.1694], name: "香港麗思卡爾頓酒店" },
+    { coords: [22.5300, 113.9400], name: "深圳中洲萬豪酒店" },
+    { coords: [22.1469, 113.5600], name: "澳門巴黎人酒店" },
+    { coords: [22.9200, 113.8900], name: "東莞松山湖凱悅酒店" },
+    { coords: [23.0237, 113.1167], name: "佛山保利洲際酒店" },
+    { coords: [22.5364, 113.3935], name: "中山希爾頓酒店" },
+    { coords: [22.5833, 113.0833], name: "江門萬豪酒店" },
+    { coords: [22.7904, 114.4058], name: "惠州小徑灣艾美酒店" },
+    { coords: [23.0517, 112.4719], name: "肇慶喜來登酒店" },
+    { coords: [22.4900, 113.9400], name: "深圳灣萬麗酒店" },
+    { coords: [22.1469, 113.5600], name: "澳門新濠影匯酒店" },
+    { coords: [23.1190, 113.3220], name: "廣州W酒店" },
+    { coords: [22.2950, 114.1717], name: "香港半島酒店" },
+    { coords: [22.1400, 113.5700], name: "珠海長隆橫琴灣酒店" },
+    { coords: [22.5330, 114.0570], name: "深圳東海朗廷酒店" },
+    { coords: [22.1469, 113.5600], name: "澳門永利皇宮酒店" },
+    { coords: [23.1060, 113.2400], name: "廣州白天鵝賓館" },
+    { coords: [22.1400, 113.5700], name: "珠海瑞吉酒店" }
+    ];
+
+    // Add markers
+    locations.forEach(function(loc) {
+      L.marker(loc.coords).addTo(map)
+        .bindPopup(loc.name);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hotels within 200km of Hong Kong (excluding HK)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui; background:#0f1220; color:#fff; margin:0; }
+    header { padding:20px; background:#171a2b; position:sticky; top:0; }
+    h1 { margin:0; font-size:20px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; padding:20px; }
+    .card { background:#1f2338; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.3); position: relative; }
+    .card img { width:100%; height:160px; object-fit:cover; }
+    .body { padding:12px; }
+    
+    /* Rating Icon Styles */
+    .rating-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #ffd700, #ff9500);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      color: #000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      z-index: 1;
+    }
+    
+    /* Optional: Different colors based on rating score */
+    .rating-icon.excellent { background: linear-gradient(135deg, #4cd964, #5ac8fa); }
+    .rating-icon.great { background: linear-gradient(135deg, #ffd700, #ff9500); }
+    .rating-icon.good { background: linear-gradient(135deg, #ff9500, #ff5e3a); }
+    .rating-icon.average { background: linear-gradient(135deg, #ff5e3a, #ff2d55); }
+    
+    .name { font-weight:600; font-size:16px; margin-bottom:8px; padding-right: 50px; }
+    .address { color:#a9aec7; font-size:13px; margin-top:6px; }
+    .price { margin-top:8px; font-size:14px; color:#6ea8fe; }
+    .actions { margin-top:10px; }
+    .actions a { display:inline-block; background:#3b6cf5; color:#fff; padding:8px 12px; border-radius:6px; text-decoration:none; font-size:13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hotels within 200km of Hong Kong (excluding HK)</h1>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <!-- Load dataset first -->
+  <script src="hotellist.js"></script>
+  <script>
+    const grid = document.getElementById('grid');
+
+    function formatHKD(n){ return `HKD ${n.toLocaleString('en-US')}`; }
+    
+    function getRatingClass(rating) {
+      // Parse rating from string if needed
+      const numRating = typeof rating === 'string' ? parseFloat(rating) : rating;
+      
+      if (numRating >= 4.5) return 'excellent';
+      if (numRating >= 4.0) return 'great';
+      if (numRating >= 3.5) return 'good';
+      return 'average';
+    }
+
+    // ✅ Define sortedHotels AFTER hotels is loaded
+    const sortedHotels = [...hotels].sort((a,b)=>b.costHKD - a.costHKD);
+
+    sortedHotels.forEach(h=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      
+      // Extract numeric rating from ratingText (assuming format like "4.9/5" or "4.9")
+      let ratingValue = h.ratingText;
+      // Try to extract just the numeric part
+      const match = h.ratingText.match(/(\d+\.?\d*)/);
+      if (match) {
+        ratingValue = match[1];
+      }
+      
+      const ratingClass = getRatingClass(parseFloat(ratingValue));
+      
+      card.innerHTML = `
+        <div class="rating-icon ${ratingClass}">${ratingValue}</div>
+        <img src="${h.img}" alt="${h.name}">
+        <div class="body">
+          <div class="name">${h.name}</div>
+          <div class="address">${h.address} • ${h.city}</div>
+          <div class="price">${formatHKD(h.costHKD)} / night</div>
+          <div class="actions"><a href="${h.url}" target="_blank">Book on Trip.com</a></div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

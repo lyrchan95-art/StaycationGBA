@@ -344,7 +344,7 @@ body {
 }
 
 .logo-area .tagline {
-    color: #666;
+    color: #f5f0f0;
     font-size: 0.9rem;
     margin-top: 5px;
 }
@@ -362,7 +362,7 @@ body {
 .points-label, .level-label {
     display: block;
     font-size: 0.8rem;
-    color: #666;
+    color: #f9f6f6;
     margin-bottom: 5px;
 }
 

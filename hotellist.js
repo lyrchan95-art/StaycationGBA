@@ -17,8 +17,7 @@ const hotels = [
 {name:"Shangri-La Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219787/shangri-la-hotel-shenzhen/", city:"Shenzhen", coords:{lat:22.533, lng:114.117}, address:"Luohu District, Shenzhen", ratingText:"4.5/5", ratingValue:4.5, costHKD:1500, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/24681012.jpg"},
 {name:"Pullman Guangzhou Baiyun Airport", url:"https://www.trip.com/hotels/guangzhou-hotel-detail-219797/pullman-guangzhou-baiyun-airport/", city:"Guangzhou", coords:{lat:23.392, lng:113.298}, address:"Baiyun Airport, Guangzhou", ratingText:"4.5/5", ratingValue:4.5, costHKD:1200, img:"https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"},
 {name:"St. Regis Zhuhai", url:"https://www.trip.com/hotels/zhuhai-hotel-detail-219799/st-regis-zhuhai/", city:"Zhuhai", coords:{lat:22.207, lng:113.567}, address:"Zhuhai", ratingText:"4.8/5", ratingValue:4.8, costHKD:1200, img:"https://cache.marriott.com/content/dam/marriott-renditions/ZUHXR/zuhxr-exterior-123.jpg"},
-
-      {name:"Four Seasons Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/", city:"Shenzhen",
+{name:"Four Seasons Hotel Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/", city:"Shenzhen",
         coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:2200},
       {name:"The Langham Shenzhen", url:"https://www.trip.com/hotels/shenzhen-hotel-detail-219791/the-langham-shenzhen/", city:"Shenzhen",
         coords:{lat:22.533, lng:114.057}, address:"Futian District, Shenzhen", ratingText:"4.7/5", ratingValue:4.7, costHKD:1900},
