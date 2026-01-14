@@ -1,62 +1,869 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-HK">
 <head>
-  <title>精選酒店</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>香港200公里内酒店地图与列表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #map {
-      height: 500px;
+    * {
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: system-ui, -apple-system, sans-serif; 
+      background: #0f1220; 
+      color: #fff; 
+      margin: 0; 
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    header { 
+      padding: 15px 20px; 
+      background: #171a2b; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000;
+      border-bottom: 1px solid #2a2f45;
+      height: 80px;
+    }
+    
+    h1 { 
+      margin: 0; 
+      font-size: 20px; 
+      font-weight: 600;
+    }
+    
+    .subtitle {
+      margin: 5px 0 0 0;
+      font-size: 13px;
+      color: #a9aec7;
+    }
+    
+    .container {
+      display: flex;
+      height: calc(100vh - 80px);
       width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .map-container, .list-container {
+        height: 50% !important;
+      }
+    }
+    
+    .map-container {
+      flex: 1;
+      min-width: 50%;
+      position: relative;
+      background: #0a0c17;
+    }
+    
+    #map {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    
+    .list-container {
+      flex: 1;
+      overflow-y: auto;
+      background: #0f1220;
+      display: flex;
+      flex-direction: column;
+      min-width: 50%;
+    }
+    
+    .hotels-header {
+      padding: 15px 20px;
+      background: #171a2b;
+      border-bottom: 1px solid #2a2f45;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .hotels-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 5px 0;
+    }
+    
+    .hotels-count {
+      background: #2a2f45;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      display: inline-block;
+    }
+    
+    .hotels-subtitle {
+      font-size: 12px;
+      color: #a9aec7;
+      margin: 5px 0 0 0;
+    }
+    
+    .grid-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+      gap: 16px; 
+    }
+    
+    .card { 
+      background: #1f2338; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 4px 12px rgba(0,0,0,.3); 
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #2a2f45;
+      cursor: pointer;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.4);
+      border-color: #3b6cf5;
+    }
+    
+    .card.active {
+      border-color: #3b6cf5;
+      box-shadow: 0 0 0 2px rgba(59, 108, 245, 0.3);
+    }
+    
+    .card img { 
+      width: 100%; 
+      height: 180px; 
+      object-fit: cover; 
+      background: #2a2f45;
+    }
+    
+    .body { 
+      padding: 16px; 
+    }
+    
+    /* Rating Icon Styles */
+    .rating-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #ffd700, #ff9500);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      color: #000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      z-index: 1;
+    }
+    
+    /* Rating color classes */
+    .rating-icon.excellent { background: linear-gradient(135deg, #4cd964, #5ac8fa); }
+    .rating-icon.great { background: linear-gradient(135deg, #ffd700, #ff9500); }
+    .rating-icon.good { background: linear-gradient(135deg, #ff9500, #ff5e3a); }
+    .rating-icon.average { background: linear-gradient(135deg, #ff5e3a, #ff2d55); }
+    
+    .name { 
+      font-weight: 600; 
+      font-size: 16px; 
+      margin-bottom: 8px; 
+      padding-right: 50px;
+      line-height: 1.4;
+    }
+    
+    .address { 
+      color: #a9aec7; 
+      font-size: 13px; 
+      margin-top: 6px; 
+      line-height: 1.4;
+    }
+    
+    .price { 
+      margin-top: 12px; 
+      font-size: 16px; 
+      color: #6ea8fe; 
+      font-weight: 600;
+    }
+    
+    .actions { 
+      margin-top: 16px; 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .actions a { 
+      display: inline-block; 
+      background: #3b6cf5; 
+      color: #fff; 
+      padding: 10px 16px; 
+      border-radius: 6px; 
+      text-decoration: none; 
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+    
+    .actions a:hover {
+      background: #2a55d4;
+    }
+    
+    .view-on-map {
+      color: #a9aec7;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    /* Map popup styles */
+    .leaflet-popup-content {
+      min-width: 280px;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #333;
+      padding: 15px;
+    }
+    
+    .hotel-popup-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1f2338;
+    }
+    
+    .hotel-popup-address {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .hotel-popup-rating {
+      color: #ff9500;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .hotel-popup-price {
+      color: #3b6cf5;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 12px 0;
+      padding: 8px;
+      background-color: #f0f5ff;
+      border-radius: 6px;
+    }
+    
+    .hotel-popup-link {
+      display: block;
+      text-align: center;
+      background: #3b6cf5;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+    
+    .hotel-popup-link:hover {
+      background: #2a55d4;
+    }
+    
+    /* Legend */
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(31, 35, 56, 0.95);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-size: 13px;
+      border: 1px solid #2a2f45;
+      backdrop-filter: blur(10px);
+      max-width: 220px;
+    }
+    
+    .legend-title {
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    
+    .legend-color.excellent { background: #4cd964; }
+    .legend-color.great { background: #ffd700; }
+    .legend-color.good { background: #ff9500; }
+    .legend-color.average { background: #ff5e3a; }
+    
+    /* Hong Kong marker */
+    .hong-kong-marker {
+      background: #3b6cf5 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: white !important;
+      font-weight: bold !important;
+      font-size: 11px !important;
+    }
+    
+    /* Map attribution styling */
+    .leaflet-control-attribution {
+      background: rgba(0, 0, 0, 0.7) !important;
+      color: #aaa !important;
+      font-size: 11px !important;
+    }
+    
+    /* No hotels message */
+    .no-hotels {
+      text-align: center;
+      padding: 40px 20px;
+      color: #a9aec7;
+      font-size: 16px;
+    }
+    
+    /* Loading spinner */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: #a9aec7;
+      font-size: 16px;
+    }
+    
+    /* Ensure map tiles are visible */
+    .leaflet-tile {
+      filter: brightness(0.9) contrast(1.1);
+    }
+    
+    /* Fix for map container */
+    .leaflet-container {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0a0c17;
     }
   </style>
 </head>
 <body>
-  <h3>酒店地圖</h3>
-  <div id="map"></div>
+  <header>
+    <h1>香港200公里内酒店地图与列表</h1>
+    <p class="subtitle">点击地图标记或酒店卡片查看详情 • 数据实时同步</p>
+  </header>
+
+  <div class="container">
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="map-legend">
+        <div class="legend-title">酒店评分图例</div>
+        <div class="legend-item">
+          <div class="legend-color excellent"></div>
+          <span>优秀 (4.5+)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color great"></div>
+          <span>很好 (4.0-4.5)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color good"></div>
+          <span>好 (3.5-4.0)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color average"></div>
+          <span>一般 (3.5以下)</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="list-container">
+      <div class="hotels-header">
+        <h2 class="hotels-title">酒店列表</h2>
+        <div class="hotels-count" id="hotel-count">0 家酒店</div>
+        <p class="hotels-subtitle">按价格从高到低排序 • 点击卡片在地图上定位</p>
+      </div>
+      <div class="grid-container">
+        <main class="grid" id="grid"></main>
+      </div>
+    </div>
+  </div>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
   <script>
-    // Initialize map centered on first location
-    var map = L.map('map').setView([40.7128, -74.0060], 4); // Example: New York
+    // 确保DOM完全加载后再初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 酒店数据
+      const hotels = [
+        {
+          name: "Mandarin Oriental Guangzhou",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219795/mandarin-oriental-guangzhou/",
+          city: "Guangzhou",
+          coords: { lat: 23.119, lng: 113.322 },
+          address: "Tianhe District, Guangzhou",
+          ratingText: "4.9/5",
+          ratingValue: 4.9,
+          costHKD: 3000,
+          img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Four Seasons Hotel Guangzhou",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219794/four-seasons-hotel-guangzhou/",
+          city: "Guangzhou",
+          coords: { lat: 23.119, lng: 113.322 },
+          address: "Tianhe District, Guangzhou",
+          ratingText: "4.8/5",
+          ratingValue: 4.8,
+          costHKD: 2500,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "The Ritz-Carlton Guangzhou",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219793/the-ritz-carlton-guangzhou/",
+          city: "Guangzhou",
+          coords: { lat: 23.119, lng: 113.322 },
+          address: "Tianhe District, Guangzhou",
+          ratingText: "4.7/5",
+          ratingValue: 4.7,
+          costHKD: 2200,
+          img: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Legend Palace Hotel",
+          url: "https://www.trip.com/hotels/macau-hotel-detail-219783/legend-palace-hotel/",
+          city: "Macau",
+          coords: { lat: 22.198, lng: 113.543 },
+          address: "Fisherman's Wharf, Macau",
+          ratingText: "5.0/5",
+          ratingValue: 5.0,
+          costHKD: 2400,
+          img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Galaxy Macau",
+          url: "https://www.trip.com/hotels/macau-hotel-detail-219777/galaxy-macau/",
+          city: "Macau",
+          coords: { lat: 22.147, lng: 113.558 },
+          address: "Cotai Strip, Macau",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 2200,
+          img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Four Seasons Hotel Shenzhen",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219786/four-seasons-hotel-shenzhen/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 114.057 },
+          address: "Futian District, Shenzhen",
+          ratingText: "4.7/5",
+          ratingValue: 4.7,
+          costHKD: 2200,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "The Venetian Macao",
+          url: "https://www.trip.com/hotels/macau-hotel-detail-219776/the-venetian-macao/",
+          city: "Macau",
+          coords: { lat: 22.147, lng: 113.559 },
+          address: "Cotai Strip, Macau",
+          ratingText: "4.7/5",
+          ratingValue: 4.7,
+          costHKD: 2000,
+          img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop"
+        },
+        {
+          name: "The Langham Shenzhen",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219791/the-langham-shenzhen/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 114.057 },
+          address: "Futian District, Shenzhen",
+          ratingText: "4.7/5",
+          ratingValue: 4.7,
+          costHKD: 1900,
+          img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Grand Hyatt Guangzhou",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219796/grand-hyatt-guangzhou/",
+          city: "Guangzhou",
+          coords: { lat: 23.119, lng: 113.322 },
+          address: "Tianhe District, Guangzhou",
+          ratingText: "4.6/5",
+          ratingValue: 4.6,
+          costHKD: 1800,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "InterContinental Shenzhen",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219788/intercontinental-shenzhen/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 113.973 },
+          address: "Nanshan District, Shenzhen",
+          ratingText: "4.6/5",
+          ratingValue: 4.6,
+          costHKD: 1800,
+          img: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Studio City Macau",
+          url: "https://www.trip.com/hotels/macau-hotel-detail-219781/studio-city-macau/",
+          city: "Macau",
+          coords: { lat: 22.147, lng: 113.559 },
+          address: "Cotai Strip, Macau",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 1700,
+          img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop"
+        },
+        {
+          name: "JW Marriott Hotel Shenzhen",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219790/jw-marriott-hotel-shenzhen/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 114.057 },
+          address: "Futian District, Shenzhen",
+          ratingText: "4.6/5",
+          ratingValue: 4.6,
+          costHKD: 1700,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Shangri-La Hotel Guangzhou",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219792/shangri-la-hotel-guangzhou/",
+          city: "Guangzhou",
+          coords: { lat: 23.106, lng: 113.362 },
+          address: "Haizhu District, Guangzhou",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 1600,
+          img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Hilton Shenzhen Futian",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219789/hilton-shenzhen-futian/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 114.057 },
+          address: "Futian District, Shenzhen",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 1600,
+          img: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Shangri-La Hotel Shenzhen",
+          url: "https://www.trip.com/hotels/shenzhen-hotel-detail-219787/shangri-la-hotel-shenzhen/",
+          city: "Shenzhen",
+          coords: { lat: 22.533, lng: 114.117 },
+          address: "Luohu District, Shenzhen",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 1500,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Pullman Guangzhou Baiyun Airport",
+          url: "https://www.trip.com/hotels/guangzhou-hotel-detail-219797/pullman-guangzhou-baiyun-airport/",
+          city: "Guangzhou",
+          coords: { lat: 23.392, lng: 113.298 },
+          address: "Baiyun Airport, Guangzhou",
+          ratingText: "4.5/5",
+          ratingValue: 4.5,
+          costHKD: 1200,
+          img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop"
+        },
+        {
+          name: "St. Regis Zhuhai",
+          url: "https://www.trip.com/hotels/zhuhai-hotel-detail-219799/st-regis-zhuhai/",
+          city: "Zhuhai",
+          coords: { lat: 22.207, lng: 113.567 },
+          address: "Zhuhai",
+          ratingText: "4.8/5",
+          ratingValue: 4.8,
+          costHKD: 1200,
+          img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Hyatt Regency Zhuhai",
+          url: "https://www.trip.com/hotels/zhuhai-hotel-detail-219798/hyatt-regency-zhuhai/",
+          city: "Zhuhai",
+          coords: { lat: 22.207, lng: 113.567 },
+          address: "Zhuhai",
+          ratingText: "4.6/5",
+          ratingValue: 4.6,
+          costHKD: 800,
+          img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop"
+        },
+        {
+          name: "Hyatt Regency Dongguan",
+          url: "https://www.trip.com/hotels/dongguan-hotel-detail-374631/hyatt-regency-dongguan/",
+          city: "Dongguan",
+          coords: { lat: 23.020, lng: 113.751 },
+          address: "Songshan Lake, Dongguan",
+          ratingText: "4.6/5",
+          ratingValue: 4.6,
+          costHKD: 800,
+          img: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?w=600&h=400&fit=crop"
+        }
+      ];
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+      // DOM 元素
+      const grid = document.getElementById('grid');
+      const hotelCount = document.getElementById('hotel-count');
+      
+      // 初始化地图 - 必须在DOM完全加载后
+      initMapAndHotels();
+      
+      function initMapAndHotels() {
+        try {
+          // 1. 先初始化地图
+          const map = L.map('map').setView([22.5, 113.5], 8);
+          
+          // 2. 添加地图图层
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+            minZoom: 5
+          }).addTo(map);
+          
+          // 3. 更新酒店计数
+          hotelCount.textContent = `${hotels.length} 家酒店`;
+          
+          // 4. 格式化价格函数
+          function formatHKD(n) { 
+            return `HKD ${n.toLocaleString('zh-HK')}`; 
+          }
+          
+          // 5. 获取评分类别函数
+          function getRatingClass(rating) {
+            const numRating = typeof rating === 'string' ? parseFloat(rating) : rating;
+            
+            if (numRating >= 4.5) return 'excellent';
+            if (numRating >= 4.0) return 'great';
+            if (numRating >= 3.5) return 'good';
+            return 'average';
+          }
 
-    // Coordinates for pins
-    var locations = [
-    { coords: [22.3964, 114.1095], name: "深圳柏悅酒店" },
-    { coords: [22.1890, 113.5390], name: "澳門美高梅酒店" },
-    { coords: [23.1190, 113.3220], name: "廣州康萊德酒店" },
-    { coords: [22.3177, 114.1694], name: "香港麗思卡爾頓酒店" },
-    { coords: [22.5300, 113.9400], name: "深圳中洲萬豪酒店" },
-    { coords: [22.1469, 113.5600], name: "澳門巴黎人酒店" },
-    { coords: [22.9200, 113.8900], name: "東莞松山湖凱悅酒店" },
-    { coords: [23.0237, 113.1167], name: "佛山保利洲際酒店" },
-    { coords: [22.5364, 113.3935], name: "中山希爾頓酒店" },
-    { coords: [22.5833, 113.0833], name: "江門萬豪酒店" },
-    { coords: [22.7904, 114.4058], name: "惠州小徑灣艾美酒店" },
-    { coords: [23.0517, 112.4719], name: "肇慶喜來登酒店" },
-    { coords: [22.4900, 113.9400], name: "深圳灣萬麗酒店" },
-    { coords: [22.1469, 113.5600], name: "澳門新濠影匯酒店" },
-    { coords: [23.1190, 113.3220], name: "廣州W酒店" },
-    { coords: [22.2950, 114.1717], name: "香港半島酒店" },
-    { coords: [22.1400, 113.5700], name: "珠海長隆橫琴灣酒店" },
-    { coords: [22.5330, 114.0570], name: "深圳東海朗廷酒店" },
-    { coords: [22.1469, 113.5600], name: "澳門永利皇宮酒店" },
-    { coords: [23.1060, 113.2400], name: "廣州白天鵝賓館" },
-    { coords: [22.1400, 113.5700], name: "珠海瑞吉酒店" }
-    ];
-
-    // Add markers
-    locations.forEach(function(loc) {
-      L.marker(loc.coords).addTo(map)
-        .bindPopup(loc.name);
+          // 6. 存储标记和卡片引用
+          const markers = [];
+          const cards = [];
+          
+          // 7. 创建自定义图标
+          function createMarkerIcon(ratingClass) {
+            const colorMap = {
+              'excellent': '#4cd964',
+              'great': '#ffd700', 
+              'good': '#ff9500',
+              'average': '#ff5e3a'
+            };
+            
+            return L.divIcon({
+              html: `<div style="
+                width: 20px; 
+                height: 20px; 
+                background: ${colorMap[ratingClass] || '#ff9500'}; 
+                border-radius: 50%; 
+                border: 2px solid white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+              "></div>`,
+              iconSize: [24, 24],
+              iconAnchor: [12, 12],
+              className: 'hotel-marker'
+            });
+          }
+          
+          // 8. 排序酒店（按价格降序）
+          const sortedHotels = [...hotels].sort((a, b) => b.costHKD - a.costHKD);
+          
+          // 9. 创建酒店卡片和地图标记
+          sortedHotels.forEach((hotel, index) => {
+            // 提取评分值
+            let ratingValue = hotel.ratingText;
+            const match = hotel.ratingText.match(/(\d+\.?\d*)/);
+            if (match) {
+              ratingValue = match[1];
+            }
+            
+            const ratingClass = getRatingClass(parseFloat(ratingValue));
+            
+            // 创建卡片
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.index = index;
+            
+            card.innerHTML = `
+              <div class="rating-icon ${ratingClass}">${ratingValue}</div>
+              <img src="${hotel.img}" alt="${hotel.name}" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop'">
+              <div class="body">
+                <div class="name">${hotel.name}</div>
+                <div class="address">${hotel.address} • ${hotel.city}</div>
+                <div class="price">${formatHKD(hotel.costHKD)} / 晚</div>
+                <div class="actions">
+                  <a href="${hotel.url}" target="_blank">在 Trip.com 预订</a>
+                  <div class="view-on-map">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    在地图上查看
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            // 添加到网格
+            grid.appendChild(card);
+            cards.push(card);
+            
+            // 创建地图标记
+            const markerIcon = createMarkerIcon(ratingClass);
+            const marker = L.marker([hotel.coords.lat, hotel.coords.lng], { 
+              icon: markerIcon,
+              title: hotel.name
+            }).addTo(map);
+            
+            // 创建弹出窗口内容
+            const popupContent = `
+              <div style="padding: 5px;">
+                <div class="hotel-popup-name">${hotel.name}</div>
+                <div class="hotel-popup-address">${hotel.address}, ${hotel.city}</div>
+                <div class="hotel-popup-rating">
+                  <span>评分: ${hotel.ratingText}</span>
+                </div>
+                <div class="hotel-popup-price">${formatHKD(hotel.costHKD)} / 晚</div>
+                <a href="${hotel.url}" target="_blank" class="hotel-popup-link">在 Trip.com 上查看详情</a>
+              </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+              maxWidth: 300,
+              minWidth: 250,
+              className: 'hotel-popup'
+            });
+            
+            markers.push(marker);
+            
+            // 卡片点击事件
+            card.addEventListener('click', () => {
+              // 移除所有卡片的 active 类
+              cards.forEach(c => c.classList.remove('active'));
+              // 添加 active 类到当前卡片
+              card.classList.add('active');
+              // 打开对应标记的弹出窗口
+              marker.openPopup();
+              // 将地图中心移动到该标记
+              map.setView([hotel.coords.lat, hotel.coords.lng], 12, {
+                animate: true,
+                duration: 0.5
+              });
+            });
+            
+            // 标记点击事件
+            marker.on('click', () => {
+              // 移除所有卡片的 active 类
+              cards.forEach(c => c.classList.remove('active'));
+              // 添加 active 类到对应卡片
+              card.classList.add('active');
+              // 滚动到对应卡片
+              setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }, 300);
+            });
+          });
+          
+          // 10. 计算边界以包含所有标记
+          if (markers.length > 0) {
+            const bounds = L.latLngBounds(markers.map(marker => marker.getLatLng()));
+            map.fitBounds(bounds, { 
+              padding: [50, 50],
+              maxZoom: 10
+            });
+          }
+          
+          // 11. 添加香港中心标记
+          const hongKongIcon = L.divIcon({
+            html: `<div style="
+              width: 24px; 
+              height: 24px; 
+              background: #3b6cf5; 
+              border-radius: 50%; 
+              border: 3px solid white;
+              box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 11px;
+              color: white;
+              font-weight: bold;
+            ">HK</div>`,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            className: 'hong-kong-marker'
+          });
+          
+          const hkMarker = L.marker([22.3193, 114.1694], { 
+            icon: hongKongIcon,
+            zIndexOffset: 1000
+          }).addTo(map);
+          
+          hkMarker.bindPopup('<b>香港</b><br>参考中心点').openPopup();
+          
+          // 12. 添加地图缩放控件
+          L.control.zoom({
+            position: 'topright'
+          }).addTo(map);
+          
+          console.log('地图和酒店数据加载完成');
+          
+        } catch (error) {
+          console.error('初始化地图时出错:', error);
+          // 显示错误信息
+          document.getElementById('map').innerHTML = `
+            <div style="display:flex; justify-content:center; align-items:center; height:100%; color:#a9aec7; flex-direction:column;">
+              <h3>地图加载失败</h3>
+              <p>请检查网络连接后刷新页面</p>
+            </div>
+          `;
+        }
+      }
     });
   </script>
 </body>
