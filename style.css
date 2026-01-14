@@ -1,306 +1,4 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "PingFang SC", "Microsoft JhengHei", sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        
-        .tagline {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-        
-        nav a:hover {
-            opacity: 0.8;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: #ff6b6b;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, background 0.3s;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            background: #ff5252;
-        }
-        
-        /* Search & Filter */
-        .search-section {
-            background: white;
-            padding: 2rem 0;
-            margin-top: -2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .filter-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .filter-group label {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-        
-        select, .filter-button {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        .filter-button {
-            background: #667eea;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .filter-button:hover {
-            background: #5a6fd8;
-        }
-        
-        /* Cities Grid */
-        .cities-section {
-            padding: 4rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2rem;
-            color: #333;
-        }
-        
-        .cities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .city-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .city-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .city-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .city-info {
-            padding: 1.5rem;
-        }
-        
-        .city-info h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        
-        .city-distance {
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-        
-        .city-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .tag {
-            background: #f1f3f4;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: #555;
-        }
-        
-        .view-hotels {
-            display: inline-block;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        
-        .view-hotels:hover {
-            color: #5a6fd8;
-        }
-        
-        /* Features Section */
-        .features-section {
-            background: white;
-            padding: 4rem 0;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-        
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #555;
-            color: #aaa;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-                gap: 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .filter-bar {
-                grid-template-columns: 1fr;
-            }
-        }
-
-     * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -308,19 +6,324 @@
 }
 
 body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white; /* 修复：确保在渐变背景上可见 */
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.9); /* 修复：确保可见性 */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.8;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white; /* 明确指定白色 */
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgba(255, 255, 255, 0.95); /* 提高对比度 */
+}
+
+.cta-button {
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    background: #ff5252;
+}
+
+/* Search & Filter */
+.search-section {
+    background: white;
+    padding: 2rem 0;
+    margin-top: -2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.filter-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+select, .filter-button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333; /* 确保文字颜色可读 */
+}
+
+.filter-button {
+    background: #667eea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.filter-button:hover {
+    background: #5a6fd8;
+}
+
+/* Cities Grid */
+.cities-section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
     color: #333;
 }
 
+.cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.city-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+}
+
+.city-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.city-info {
+    padding: 1.5rem;
+}
+
+.city-info h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.city-distance {
+    color: #667eea;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.city-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    background: #f1f3f4;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #555; /* 确保标签文字可见 */
+}
+
+.view-hotels {
+    display: inline-block;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.view-hotels:hover {
+    color: #5a6fd8;
+}
+
+/* Features Section */
+.features-section {
+    background: white;
+    padding: 4rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.feature-card h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.footer-section p, .footer-section a {
+    color: #ccc; /* 提高对比度 */
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #555;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .filter-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 助手容器样式 - 修复文字颜色问题 */
 .assistant-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333; /* 确保基础文字颜色 */
 }
 
-/* Header Styles */
+/* 助手头部样式 */
 .assistant-header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -330,21 +333,18 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .logo-area .logo {
     font-size: 1.8rem;
     font-weight: bold;
     background: linear-gradient(135deg, #667eea, #764ba2);
-    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #667eea; /* 回退颜色 */
 }
 
 .logo-area .tagline {
-    color: #f5f0f0;
+    color: #666; /* 从白色改为深灰色，提高对比度 */
     font-size: 0.9rem;
     margin-top: 5px;
 }
@@ -362,7 +362,7 @@ body {
 .points-label, .level-label {
     display: block;
     font-size: 0.8rem;
-    color: #f9f6f6;
+    color: #666; /* 从白色改为深灰色 */
     margin-bottom: 5px;
 }
 
@@ -378,13 +378,14 @@ body {
     color: #667eea;
 }
 
-/* Progress Section */
+/* 进度部分 */
 .progress-section {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 1.5rem;
     margin-bottom: 2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    color: #333; /* 确保文字颜色 */
 }
 
 .progress-bar {
@@ -414,6 +415,7 @@ body {
     flex: 1;
     position: relative;
     z-index: 2;
+    color: #333; /* 确保文字颜色 */
 }
 
 .step::before {
@@ -444,13 +446,14 @@ body {
     font-weight: bold;
 }
 
-/* AI Interface */
+/* AI界面 */
 .ai-interface {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
+    color: #333; /* 确保文字颜色 */
 }
 
 .question-section {
@@ -476,6 +479,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    color: white; /* 确保图标颜色可见 */
     margin-bottom: 0.5rem;
 }
 
@@ -496,7 +500,7 @@ body {
     line-height: 1.5;
 }
 
-/* Options Grid */
+/* 选项网格 */
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -531,6 +535,7 @@ body {
 .option-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    color: #667eea; /* 确保图标颜色可见 */
 }
 
 .option-card h4 {
@@ -555,7 +560,7 @@ body {
     display: inline-block;
 }
 
-/* Budget Bars */
+/* 预算条 */
 .budget-bar {
     height: 6px;
     background: #f0f0f0;
@@ -584,7 +589,7 @@ body {
     background: #F44336;
 }
 
-/* Distance Tags */
+/* 距离标签 */
 .distance-tag {
     position: absolute;
     top: 10px;
@@ -593,7 +598,7 @@ body {
     border-radius: 15px;
     font-size: 0.7rem;
     font-weight: bold;
-    color: white;
+    color: white; /* 确保文字在彩色背景上可见 */
 }
 
 .distance-tag.nearby {
@@ -612,7 +617,7 @@ body {
     background: #9C27B0;
 }
 
-/* Multi-select Options */
+/* 多选选项 */
 .option-card.multi-select .checkmark {
     position: absolute;
     top: 10px;
@@ -634,9 +639,10 @@ body {
     color: white;
 }
 
-/* Results Section */
+/* 结果部分 */
 .results-section {
     text-align: center;
+    color: #333; /* 确保文字颜色 */
 }
 
 .results-header {
@@ -782,12 +788,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.points-label {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Buttons */
+/* 按钮 */
 .navigation-section {
     display: flex;
     justify-content: space-between;
@@ -851,67 +852,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* Gamification Elements */
-.floating-points {
-    position: fixed;
-    pointer-events: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ff6b6b;
-    z-index: 1000;
-    opacity: 0;
-}
-
-.confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 999;
-}
-
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #ff6b6b;
-    opacity: 0;
-}
-
-/* Animations */
-@keyframes floatUp {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-50px) scale(0.5);
-        opacity: 0;
-    }
-}
-
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-.floating-points.animate {
-    animation: floatUp 1s ease-out forwards;
-}
-
-.confetti.animate {
-    animation: confettiFall 2s ease-out forwards;
-}
-
-/* Responsive Design */
+/* 响应式设计 */
 @media (max-width: 768px) {
     .assistant-container {
         padding: 10px;
@@ -962,4 +903,4 @@ body {
     .hotel-price {
         text-align: center;
     }
-}   
+}
