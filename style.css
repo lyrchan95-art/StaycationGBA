@@ -7,8 +7,9 @@
 
 body {
     background-color: #f8f9fa;
-    color: #333;
+    color: #1a1a1a; /* 提高对比度：深灰色代替纯黑 */
     line-height: 1.6;
+    font-size: 16px; /* 基础字体大小，提高可读性 */
 }
 
 .container {
@@ -19,7 +20,7 @@ body {
 
 /* Header Styles */
 header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4a6fe3 0%, #6a4ca8 100%); /* 调整颜色提高对比度 */
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -34,14 +35,14 @@ header {
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color: white; /* 修复：确保在渐变背景上可见 */
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3); /* 添加阴影提高可读性 */
 }
 
 .tagline {
     font-size: 0.9rem;
-    opacity: 0.9;
     margin-top: 5px;
-    color: rgba(255, 255, 255, 0.9); /* 修复：确保可见性 */
+    color: rgba(255, 255, 255, 0.95); /* 提高不透明度，增强对比度 */
 }
 
 nav ul {
@@ -53,31 +54,113 @@ nav ul {
 nav a {
     color: white;
     text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.3s;
+    font-weight: 600; /* 提高字体权重 */
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
 }
 
-nav a:hover {
-    opacity: 0.8;
+nav a:hover, nav a:focus {
+    opacity: 0.9;
+    border-bottom: 2px solid white;
+    outline: none;
 }
-/* Carousel Styles */ 
-.blog-carousel { 
-    position: relative; overflow: hidden; max-width: 1000px; margin: 0 auto; 
+
+/* 键盘导航焦点状态 */
+nav a:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 3px;
+    border-radius: 3px;
 }
- .carousel-track { display: flex; transition: transform 0.5s ease-in-out; } 
- .blog-card { min-width: 300px; margin: 0 1rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden; flex-shrink: 0; } 
- .blog-image { height: 180px; background-size: cover; background-position: center; }
-  .blog-content { padding: 1rem; } .blog-content h3 { margin-bottom: 0.5rem; color: #333; }
-   .blog-content p { font-size: 0.9rem; color: #666; margin-bottom: 1rem; } 
-   .read-more { display: inline-block; color: #667eea; font-weight: bold; text-decoration: none; }
-    .carousel-buttons { display: flex; justify-content: center; margin-top: 1rem; gap: 1rem; } 
-    .carousel-btn { background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; transition: background 0.3s; } 
-.carousel-btn:hover { background: #5a6fd8; 
+
+/* Carousel Styles */
+.blog-carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.blog-card {
+    min-width: 300px;
+    margin: 0 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* 柔化阴影 */
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.blog-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    background-color: #e9ecef; /* 添加背景色，防止图片加载失败时无背景 */
+}
+
+.blog-content {
+    padding: 1.2rem;
+}
+
+.blog-content h3 {
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+    font-size: 1.25rem;
+}
+
+.blog-content p {
+    font-size: 0.95rem;
+    color: #555; /* 提高对比度 */
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+}
+
+.read-more {
+    display: inline-block;
+    color: #4a6fe3; /* 使用一致的蓝色调 */
+    font-weight: 600;
+    text-decoration: none;
+    padding: 5px 0;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
+}
+
+.read-more:hover, .read-more:focus {
+    border-bottom: 1px solid #4a6fe3;
+}
+
+.carousel-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.carousel-btn {
+    background: #4a6fe3;
+    color: white;
+    border: none;
+    padding: 12px 17px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.carousel-btn:hover, .carousel-btn:focus {
+    background: #3a5fd3;
+    transform: scale(1.05);
+    outline: none;
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                 url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
     background-size: cover;
     background-position: center;
@@ -88,42 +171,49 @@ nav a:hover {
 
 .hero h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: white; /* 明确指定白色 */
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .hero p {
     font-size: 1.2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    color: rgba(255, 255, 255, 0.95); /* 提高对比度 */
+    color: rgba(255, 255, 255, 0.98);
+    line-height: 1.6;
 }
 
 .cta-button {
     display: inline-block;
-    background: #ff6b6b;
+    background: #e74c3c; /* 改用红色，避免黄色对比度问题 */
     color: white;
-    padding: 12px 30px;
-    border-radius: 25px;
+    padding: 14px 35px;
+    border-radius: 30px;
     text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.3s, background 0.3s;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid #e74c3c;
+    font-size: 1.1rem;
 }
 
-.cta-button:hover {
-    transform: translateY(-2px);
-    background: #ff5252;
+.cta-button:hover, .cta-button:focus {
+    transform: translateY(-3px);
+    background: #c0392b;
+    border-color: #c0392b;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    outline: none;
 }
 
 /* Search & Filter */
 .search-section {
     background: white;
-    padding: 2rem 0;
+    padding: 2.5rem 0;
     margin-top: -2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     position: relative;
     z-index: 10;
 }
@@ -131,8 +221,8 @@ nav a:hover {
 .filter-bar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .filter-group {
@@ -141,29 +231,39 @@ nav a:hover {
 }
 
 .filter-group label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: #555;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-size: 0.95rem;
 }
 
 select, .filter-button {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
     font-size: 1rem;
-    color: #333; /* 确保文字颜色可读 */
+    color: #333;
+    transition: all 0.3s;
+}
+
+select:focus, .filter-button:focus {
+    outline: none;
+    border-color: #4a6fe3;
+    box-shadow: 0 0 0 3px rgba(74, 111, 227, 0.2);
 }
 
 .filter-button {
-    background: #667eea;
+    background: #4a6fe3;
     color: white;
     border: none;
     cursor: pointer;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: all 0.3s;
 }
 
-.filter-button:hover {
-    background: #5a6fd8;
+.filter-button:hover, .filter-button:focus {
+    background: #3a5fd3;
+    transform: translateY(-2px);
 }
 
 /* Cities Grid */
@@ -174,198 +274,207 @@ select, .filter-button {
 .section-title {
     text-align: center;
     margin-bottom: 3rem;
-    font-size: 2rem;
-    color: #333;
+    font-size: 2.2rem;
+    color: #1a1a1a;
 }
 
 .cities-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .city-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.city-card:hover {
-    transform: translateY(-5px);
+.city-card:hover, .city-card:focus-within {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .city-image {
     height: 200px;
     background-size: cover;
     background-position: center;
+    background-color: #e9ecef;
 }
 
 .city-info {
-    padding: 1.5rem;
+    padding: 1.8rem;
 }
 
 .city-info h3 {
-    margin-bottom: 0.5rem;
-    color: #333;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+    font-size: 1.4rem;
 }
 
 .city-distance {
-    color: #667eea;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    color: #4a6fe3;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .city-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .tag {
-    background: #f1f3f4;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    color: #555; /* 确保标签文字可见 */
+    background: #f0f3f8;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
 }
 
 .view-hotels {
     display: inline-block;
-    color: #667eea;
+    color: #4a6fe3;
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-weight: 600;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
 }
 
-.view-hotels:hover {
-    color: #5a6fd8;
+.view-hotels:hover, .view-hotels:focus {
+    color: #3a5fd3;
+    border-bottom: 2px solid #4a6fe3;
 }
 
 /* Features Section */
 .features-section {
-    background: white;
+    background: #f8f9fa;
     padding: 4rem 0;
 }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .feature-card {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 2.5rem 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #667eea;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: #4a6fe3;
 }
 
 .feature-card h3 {
     margin-bottom: 1rem;
-    color: #333;
+    color: #1a1a1a;
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
 }
 
 /* Footer */
 footer {
-    background: #333;
+    background: #2c3e50; /* 深蓝色背景，提高对比度 */
     color: white;
-    padding: 3rem 0 1rem;
+    padding: 3.5rem 0 1.5rem;
 }
 
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .footer-section h3 {
+    margin-bottom: 1.5rem;
+    color: #4a6fe3;
+    font-size: 1.3rem;
+}
+
+.footer-section p {
+    color: #ecf0f1;
+    line-height: 1.6;
     margin-bottom: 1rem;
-    color: #667eea;
 }
 
-.footer-section p, .footer-section a {
-    color: #ccc; /* 提高对比度 */
+.footer-section a {
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+    margin-bottom: 0.5rem;
 }
 
-.footer-section a:hover {
-    color: white;
+.footer-section a:hover, .footer-section a:focus {
+    color: #4a6fe3;
+    text-decoration: underline;
 }
 
 .footer-bottom {
     text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #555;
-    color: #aaa;
+    padding-top: 2.5rem;
+    border-top: 1px solid #3a5068;
+    color: #bdc3c7;
+    font-size: 0.9rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    nav ul {
-        margin-top: 1rem;
-        gap: 1rem;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .filter-bar {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 助手容器样式 - 修复文字颜色问题 */
+/* 助手容器样式 */
 .assistant-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #333; /* 确保基础文字颜色 */
+    background: linear-gradient(135deg, #4a6fe3 0%, #6a4ca8 100%);
+    color: #1a1a1a;
 }
 
 /* 助手头部样式 */
 .assistant-header {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.8rem;
+    margin-bottom: 2.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .logo-area .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #4a6fe3, #6a4ca8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: #667eea; /* 回退颜色 */
+    color: #4a6fe3;
 }
 
 .logo-area .tagline {
-    color: #666; /* 从白色改为深灰色，提高对比度 */
-    font-size: 0.9rem;
-    margin-top: 5px;
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 8px;
 }
 
 .gamification-bar {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
 }
 
@@ -375,45 +484,46 @@ footer {
 
 .points-label, .level-label {
     display: block;
-    font-size: 0.8rem;
-    color: #666; /* 从白色改为深灰色 */
-    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .points-value {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
-    color: #ff6b6b;
+    color: #e74c3c; /* 改用红色，避免黄色对比度问题 */
 }
 
 .level-value {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #667eea;
+    color: #4a6fe3;
 }
 
 /* 进度部分 */
 .progress-section {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 20px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.8rem;
+    margin-bottom: 2.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    color: #333; /* 确保文字颜色 */
+    color: #1a1a1a;
 }
 
 .progress-bar {
-    height: 8px;
+    height: 10px;
     background: #f0f0f0;
-    border-radius: 4px;
-    margin-bottom: 2rem;
+    border-radius: 5px;
+    margin-bottom: 2.5rem;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
-    border-radius: 4px;
+    background: linear-gradient(90deg, #27ae60, #2ecc71); /* 改用绿色渐变 */
+    border-radius: 5px;
     width: 0%;
     transition: width 0.5s ease;
 }
@@ -429,24 +539,24 @@ footer {
     flex: 1;
     position: relative;
     z-index: 2;
-    color: #333; /* 确保文字颜色 */
+    color: #1a1a1a;
 }
 
 .step::before {
     content: '';
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: #ddd;
     border-radius: 50%;
     display: block;
-    margin: 0 auto 10px;
+    margin: 0 auto 12px;
     transition: all 0.3s ease;
 }
 
 .step.active::before {
-    background: #4CAF50;
+    background: #27ae60;
     transform: scale(1.2);
-    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+    box-shadow: 0 0 0 5px rgba(39, 174, 96, 0.2);
 }
 
 .step::after {
@@ -456,26 +566,26 @@ footer {
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: bold;
 }
 
 /* AI界面 */
 .ai-interface {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 20px;
-    padding: 2rem;
+    padding: 2.2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    color: #333; /* 确保文字颜色 */
+    margin-bottom: 2.5rem;
+    color: #1a1a1a;
 }
 
 .question-section {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
     border-bottom: 2px solid #f0f0f0;
 }
 
@@ -485,48 +595,49 @@ footer {
 }
 
 .avatar {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #4a6fe3, #6a4ca8);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: white; /* 确保图标颜色可见 */
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 0.75rem;
 }
 
 .ai-name {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #666;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .question-content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
 }
 
 .question-content p {
     color: #666;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 1.05rem;
 }
 
 /* 选项网格 */
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .option-card {
     background: white;
-    border: 2px solid #f0f0f0;
-    border-radius: 15px;
-    padding: 1.5rem;
+    border: 3px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.8rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -534,111 +645,113 @@ footer {
     overflow: hidden;
 }
 
-.option-card:hover {
-    transform: translateY(-5px);
-    border-color: #667eea;
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+.option-card:hover, .option-card:focus {
+    transform: translateY(-8px);
+    border-color: #4a6fe3;
+    box-shadow: 0 15px 30px rgba(74, 111, 227, 0.15);
+    outline: none;
 }
 
 .option-card.selected {
-    border-color: #4CAF50;
-    background: linear-gradient(135deg, #f8fff8, #e8f5e8);
+    border-color: #27ae60;
+    background: linear-gradient(135deg, #f8fff9, #eaf7ee);
     transform: scale(1.02);
 }
 
 .option-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #667eea; /* 确保图标颜色可见 */
+    font-size: 2.8rem;
+    margin-bottom: 1.2rem;
+    color: #4a6fe3;
 }
 
 .option-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
 }
 
 .option-card p {
     color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
 }
 
 .points-badge {
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    background: linear-gradient(135deg, #e74c3c, #e67e22); /* 改用红橙色渐变 */
     color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
     display: inline-block;
 }
 
 /* 预算条 */
 .budget-bar {
-    height: 6px;
+    height: 8px;
     background: #f0f0f0;
-    border-radius: 3px;
-    margin: 1rem 0;
+    border-radius: 4px;
+    margin: 1.2rem 0;
     overflow: hidden;
 }
 
 .budget-fill {
     height: 100%;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .budget-fill.low {
     width: 33%;
-    background: #4CAF50;
+    background: #27ae60;
 }
 
 .budget-fill.medium {
     width: 66%;
-    background: #FF9800;
+    background: #f39c12;
 }
 
 .budget-fill.high {
     width: 100%;
-    background: #F44336;
+    background: #e74c3c;
 }
 
 /* 距离标签 */
 .distance-tag {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    color: white; /* 确保文字在彩色背景上可见 */
+    top: 15px;
+    right: 15px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
 }
 
 .distance-tag.nearby {
-    background: #4CAF50;
+    background: #27ae60;
 }
 
 .distance-tag.medium {
-    background: #FF9800;
+    background: #f39c12;
 }
 
 .distance-tag.far {
-    background: #F44336;
+    background: #e74c3c;
 }
 
 .distance-tag.farthest {
-    background: #9C27B0;
+    background: #8e44ad;
 }
 
 /* 多选选项 */
 .option-card.multi-select .checkmark {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ddd;
+    top: 15px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #ddd;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -648,67 +761,70 @@ footer {
 }
 
 .option-card.multi-select.selected .checkmark {
-    background: #4CAF50;
-    border-color: #4CAF50;
+    background: #27ae60;
+    border-color: #27ae60;
     color: white;
 }
 
 /* 结果部分 */
 .results-section {
     text-align: center;
-    color: #333; /* 确保文字颜色 */
+    color: #1a1a1a;
 }
 
 .results-header {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .achievement-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #FFD700, #FFA000);
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* 改用蓝色渐变，避免黄色 */
     color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
 .badge-icon {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .recommended-hotels {
     display: grid;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .hotel-result-card {
     background: white;
-    border: 2px solid #f0f0f0;
-    border-radius: 15px;
-    padding: 1.5rem;
+    border: 3px solid #f0f0f0;
+    border-radius: 18px;
+    padding: 1.8rem;
     text-align: left;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: center;
     transition: all 0.3s ease;
 }
 
-.hotel-result-card:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
+.hotel-result-card:hover, .hotel-result-card:focus-within {
+    border-color: #4a6fe3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .hotel-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
     background-size: cover;
     background-position: center;
     flex-shrink: 0;
+    background-color: #e9ecef;
 }
 
 .hotel-details {
@@ -716,31 +832,32 @@ footer {
 }
 
 .hotel-details h4 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: #1a1a1a;
 }
 
 .hotel-meta {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    gap: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
     color: #666;
 }
 
 .hotel-features {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
 }
 
 .feature-tag {
-    background: #f0f0f0;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    color: #666;
+    background: #f0f3f8;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
 }
 
 .hotel-price {
@@ -749,24 +866,26 @@ footer {
 }
 
 .price-amount {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
-    color: #ff6b6b;
+    color: #e74c3c;
 }
 
 .price-unit {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #666;
+    display: block;
+    margin-top: 5px;
 }
 
 .results-summary {
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    margin-bottom: 2rem;
-    padding: 2rem;
+    gap: 3.5rem;
+    margin-bottom: 2.5rem;
+    padding: 2.5rem;
     background: #f8f9fa;
-    border-radius: 15px;
+    border-radius: 18px;
 }
 
 .match-score, .points-earned {
@@ -774,32 +893,37 @@ footer {
 }
 
 .score-circle {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.2rem;
 }
 
 .score-value {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
 }
 
 .score-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .total-points {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: bold;
-    color: #ff6b6b;
-    margin-bottom: 0.5rem;
+    color: #e74c3c;
+    margin-bottom: 0.75rem;
+}
+
+.points-label {
+    color: #666;
+    font-size: 0.95rem;
 }
 
 /* 按钮 */
@@ -807,39 +931,41 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 2rem;
-    border-top: 2px solid #f0f0f0;
+    padding-top: 2.5rem;
+    border-top: 3px solid #f0f0f0;
 }
 
 .action-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
 }
 
 .btn-primary, .btn-secondary, .btn-outline {
-    padding: 12px 30px;
+    padding: 14px 35px;
     border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: bold;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #4a6fe3, #6a4ca8);
     color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+.btn-primary:hover:not(:disabled), .btn-primary:focus:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(74, 111, 227, 0.4);
+    outline: none;
 }
 
 .btn-primary:disabled {
     background: #ccc;
+    color: #666;
     cursor: not-allowed;
     transform: none;
 }
@@ -849,37 +975,44 @@ footer {
     color: white;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover, .btn-secondary:focus {
     background: #5a6268;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    outline: none;
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid #667eea;
-    color: #667eea;
+    border: 3px solid #4a6fe3;
+    color: #4a6fe3;
 }
 
-.btn-outline:hover {
-    background: #667eea;
+.btn-outline:hover, .btn-outline:focus {
+    background: #4a6fe3;
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    outline: none;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
     .assistant-container {
-        padding: 10px;
+        padding: 15px;
     }
 
     .header-content {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
         text-align: center;
     }
 
     .gamification-bar {
-        gap: 1rem;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
     .options-grid {
@@ -888,33 +1021,77 @@ footer {
 
     .progress-steps {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .step::before {
-        margin: 0 auto 5px;
+        margin: 0 auto 8px;
     }
 
     .results-summary {
         flex-direction: column;
-        gap: 2rem;
+        gap: 2.5rem;
     }
 
     .navigation-section {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .action-buttons {
         flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-buttons button {
+        width: 100%;
     }
 
     .hotel-result-card {
         flex-direction: column;
         text-align: center;
+        gap: 1.2rem;
     }
 
     .hotel-price {
         text-align: center;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .filter-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    body {
+        color: #000;
+        background-color: #fff;
+    }
+    
+    .hero, header {
+        background: #000;
+    }
+    
+    .cta-button, .btn-primary, .filter-button {
+        background: #000;
+        border: 2px solid #fff;
+    }
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
