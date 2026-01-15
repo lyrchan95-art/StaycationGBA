@@ -36,7 +36,7 @@ header {
     font-size: 1.8rem;
     font-weight: bold;
     color: white;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3); /* 添加阴影提高可读性 */
+    -
 }
 
 .tagline {
@@ -459,7 +459,7 @@ footer {
 .logo-area .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    background: linear-gradient(135deg, #4a6fe3, #6a4ca8);
+    background:  #6a4ca8;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -467,7 +467,7 @@ footer {
 }
 
 .logo-area .tagline {
-    color: #666;
+    color: #c9c5c5;
     font-size: 0.95rem;
     margin-top: 8px;
 }
