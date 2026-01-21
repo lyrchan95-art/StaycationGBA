@@ -440,10 +440,10 @@ footer {
 .assistant-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #4a6fe3 0%, #6a4ca8 100%);
-    color: #1a1a1a;
+    padding: 1px;
+    min-height: 1vh;
+    background: #f8fff9
+    color: #1a1a1a ;
 }
 
 /* 助手头部样式 */
@@ -1001,7 +1001,7 @@ footer {
     }
     
     .assistant-container {
-        padding: 15px;
+        padding: 1px;
     }
 
     .header-content {
