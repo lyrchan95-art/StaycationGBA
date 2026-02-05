@@ -1,0 +1,661 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f5ff 0%, #e8f4ff 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border-left: 8px solid #e31837;
+}
+
+h1 {
+    color: #e31837;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: #f8f9fa;
+    padding: 12px 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    min-width: 160px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e31837;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.line-color {
+    width: 24px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid;
+}
+
+/* 地圖區塊（置中顯示） */
+.map-section-main {
+    margin-bottom: 40px;
+}
+
+.map-container {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+#railwayMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: 
+        linear-gradient(90deg, rgba(173, 216, 230, 0.1) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(173, 216, 230, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+.region {
+    position: absolute;
+    border-radius: 12px;
+    opacity: 0.08;
+    z-index: 1;
+}
+
+.guangdong { background: #e31837; left: 20%; top: 20%; width: 45%; height: 50%; }
+.guangzhou { background: #00a650; left: 35%; top: 40%; width: 20%; height: 25%; }
+.shenzhen { background: #ff6b35; left: 20%; top: 60%; width: 15%; height: 20%; }
+.east-guangdong { background: #00a650; left: 60%; top: 20%; width: 25%; height: 30%; }
+.north-guangdong { background: #ff6b35; left: 30%; top: 10%; width: 25%; height: 25%; }
+.fujian { background: #9c27b0; left: 75%; top: 15%; width: 20%; height: 35%; }
+.jiangxi { background: #2196f3; left: 15%; top: 5%; width: 20%; height: 20%; }
+
+.rail-line {
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.rail-line:hover {
+    height: 6px;
+    box-shadow: 0 0 15px currentColor;
+    z-index: 100;
+}
+
+.station {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid;
+    z-index: 20;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.station:hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 1000;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+
+.station-label {
+    position: absolute;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px 12px;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    z-index: 30;
+    white-space: nowrap;
+    pointer-events: none;
+    border-left: 3px solid;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.station:hover + .station-label {
+    opacity: 1;
+    background: white;
+    z-index: 1001;
+    font-weight: bold;
+}
+
+.station-info {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: none;
+    border-top: 6px solid;
+}
+
+.station-info h3 {
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.time-badge {
+    display: inline-block;
+    background: #e31837;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* 篩選和結果區塊 */
+.filter-result-section {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.filter-panel {
+    flex: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    min-width: 320px;
+}
+
+.result-panel {
+    flex: 2;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.filter-header h2 {
+    color: #e31837;
+    font-size: 1.5rem;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.result-header h2 {
+    color: #e31837;
+    font-size: 1.5rem;
+}
+
+.result-count {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.search-container {
+    margin-bottom: 25px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: #e31837;
+    box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.1);
+}
+
+.filter-group-box {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-group-box:last-child {
+    border-bottom: none;
+}
+
+.filter-group-box h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-icon {
+    font-size: 1.2rem;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-btn {
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: left;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-btn:hover {
+    border-color: #e31837;
+    color: #e31837;
+    transform: translateX(5px);
+}
+
+.filter-btn.active {
+    background: #e31837;
+    color: white;
+    border-color: #e31837;
+}
+
+.station-count {
+    background: rgba(0,0,0,0.1);
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.line-color-preview {
+    width: 20px;
+    height: 6px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+/* 統計資訊 */
+.stats-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.stats-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat-info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-info-item:last-child {
+    border-bottom: none;
+}
+
+.stat-info-label {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.stat-info-value {
+    color: #e31837;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* 車站列表 */
+.station-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    max-height: 600px;
+}
+
+.station-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.station-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.station-list::-webkit-scrollbar-thumb {
+    background: #e31837;
+    border-radius: 3px;
+}
+
+.station-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    border-left: 6px solid;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.station-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: #e0e0e0;
+}
+
+.station-card h4 {
+    color: #333;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-time {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #e31837;
+    margin-bottom: 12px;
+}
+
+.card-line {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.card-region {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.station-card p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+/* 重置按鈕 */
+.reset-btn {
+    background: #e31837;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reset-btn:hover {
+    background: #c41630;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(227, 24, 55, 0.3);
+}
+
+.region-label {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.7);
+    z-index: 5;
+    pointer-events: none;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    color: #777;
+    font-size: 14px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+}
+
+.time-scale {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    z-index: 50;
+}
+
+.time-scale h4 {
+    margin-bottom: 10px;
+    color: #e31837;
+}
+
+.time-bar {
+    height: 10px;
+    background: linear-gradient(90deg, 
+        #4CAF50 0%, 
+        #FFC107 33%, 
+        #FF9800 66%, 
+        #F44336 100%);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.time-marker {
+    position: absolute;
+    top: -5px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.time-marker:nth-child(1) { left: 0%; }
+.time-marker:nth-child(2) { left: 33%; }
+.time-marker:nth-child(3) { left: 66%; }
+.time-marker:nth-child(4) { left: 100%; }
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    .filter-result-section {
+        flex-direction: column;
+    }
+    
+    .station-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .map-container {
+        height: 500px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats {
+        gap: 15px;
+    }
+    
+    .stat-item {
+        min-width: 140px;
+        padding: 10px 15px;
+    }
+    
+    .map-container {
+        height: 400px;
+        padding: 10px;
+    }
+    
+    .legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .station-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-result-section {
+        gap: 20px;
+    }
+}
+
+/* 空狀態樣式 */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
