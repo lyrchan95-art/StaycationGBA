@@ -238,7 +238,8 @@ h1 {
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-    min-width: 320px;
+    min-width: 350px;
+    max-width: 400px;
 }
 
 .result-panel {
@@ -261,8 +262,15 @@ h1 {
 }
 
 .filter-header h2 {
-    color: #e31837;
-    font-size: 1.5rem;
+    color: #333;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-icon {
+    font-size: 1.2rem;
 }
 
 .result-header {
@@ -275,14 +283,23 @@ h1 {
 }
 
 .result-header h2 {
-    color: #e31837;
+    color: #333;
     font-size: 1.5rem;
 }
 
+.result-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
 .result-count {
-    background: #f8f9fa;
-    padding: 8px 16px;
-    border-radius: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e31837;
+}
+
+.result-text {
     font-size: 0.9rem;
     color: #666;
 }
@@ -306,112 +323,126 @@ h1 {
     box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.1);
 }
 
-.filter-group-box {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.filter-group-box:last-child {
-    border-bottom: none;
-}
-
-.filter-group-box h3 {
-    color: #333;
+/* 組合篩選器 */
+.combined-filters {
     margin-bottom: 20px;
-    font-size: 1.2rem;
+}
+
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-group-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
+}
+
+.filter-group-header h3 {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-count {
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 藥丸按鈕樣式 */
+.pill-container {
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
-.filter-icon {
-    font-size: 1.2rem;
-}
-
-.filter-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.filter-btn {
-    padding: 15px 20px;
-    border-radius: 10px;
+.pill-btn {
+    padding: 10px 18px;
+    border-radius: 25px;
     border: 2px solid #e0e0e0;
     background: white;
     color: #666;
     cursor: pointer;
     font-weight: 600;
-    text-align: left;
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8px;
 }
 
-.filter-btn:hover {
+.pill-btn:hover {
     border-color: #e31837;
     color: #e31837;
-    transform: translateX(5px);
+    transform: translateY(-2px);
 }
 
-.filter-btn.active {
+.pill-btn.active {
     background: #e31837;
     color: white;
     border-color: #e31837;
 }
 
-.station-count {
-    background: rgba(0,0,0,0.1);
-    padding: 5px 12px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: bold;
+.line-pill {
+    padding: 10px 15px;
 }
 
-.line-color-preview {
-    width: 20px;
-    height: 6px;
-    border-radius: 3px;
-    margin-left: 10px;
+.line-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
 }
 
-/* 統計資訊 */
-.stats-box {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 10px;
-}
-
-.stats-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.stat-info-item {
+/* 活動篩選標籤 */
+.active-filters {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    min-height: 40px;
+}
+
+.active-filter-tag {
+    background: #f0f7ff;
+    color: #0066cc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: flex;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #e0e0e0;
+    gap: 8px;
+    border: 1px solid #cce0ff;
 }
 
-.stat-info-item:last-child {
-    border-bottom: none;
+.active-filter-tag .remove-btn {
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-.stat-info-label {
-    color: #666;
-    font-size: 0.95rem;
-}
-
-.stat-info-value {
-    color: #e31837;
-    font-weight: bold;
-    font-size: 1.1rem;
+.active-filter-tag .remove-btn:hover {
+    background: #0066cc;
+    color: white;
 }
 
 /* 車站列表 */
@@ -501,13 +532,13 @@ h1 {
 
 /* 重置按鈕 */
 .reset-btn {
-    background: #e31837;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #e0e0e0;
+    padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 600;
     transition: all 0.3s ease;
     display: flex;
@@ -516,9 +547,14 @@ h1 {
 }
 
 .reset-btn:hover {
-    background: #c41630;
+    background: #e31837;
+    color: white;
+    border-color: #e31837;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(227, 24, 55, 0.3);
+}
+
+.reset-icon {
+    font-size: 1rem;
 }
 
 .region-label {
@@ -589,6 +625,10 @@ footer {
         flex-direction: column;
     }
     
+    .filter-panel {
+        max-width: 100%;
+    }
+    
     .station-list {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
@@ -627,8 +667,13 @@ footer {
         grid-template-columns: 1fr;
     }
     
-    .stats-info {
-        grid-template-columns: 1fr;
+    .pill-container {
+        gap: 8px;
+    }
+    
+    .pill-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
     }
     
     .filter-result-section {
@@ -641,6 +686,7 @@ footer {
     text-align: center;
     padding: 60px 20px;
     color: #666;
+    grid-column: 1 / -1;
 }
 
 .empty-state-icon {

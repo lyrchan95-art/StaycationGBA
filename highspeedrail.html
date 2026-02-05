@@ -99,91 +99,79 @@
         
         <!-- 篩選和結果區塊（分為左右兩欄） -->
         <div class="filter-result-section">
-            <!-- 左側篩選器區域 -->
+            <!-- 左側篩選器區域（單一容器） -->
             <div class="filter-panel">
                 <div class="filter-header">
-                    <h2>篩選條件</h2>
-                    <button class="reset-btn" id="resetAllFilters">重置所有篩選</button>
+                    <h2><span class="filter-icon">⚙️</span> 篩選條件</h2>
+                    <button class="reset-btn" id="resetAllFilters">
+                        <span class="reset-icon">🔄</span> 重置篩選
+                    </button>
                 </div>
                 
                 <div class="search-container">
-                    <input type="text" class="search-box" placeholder="搜尋車站名稱或地區...">
+                    <input type="text" class="search-box" placeholder="🔍 搜尋車站名稱或地區...">
                 </div>
                 
-                <!-- 時間篩選 -->
-                <div class="filter-group-box">
-                    <h3><span class="filter-icon">⏱️</span> 篩選旅行時間</h3>
-                    <div class="filter-options">
-                        <button class="filter-btn active" data-filter="all">
-                            <span>全部車站</span>
-                            <span class="station-count" id="count-all">34</span>
-                        </button>
-                        <button class="filter-btn" data-filter="1">
-                            <span>1小時內</span>
-                            <span class="station-count" id="count-1">7</span>
-                        </button>
-                        <button class="filter-btn" data-filter="2">
-                            <span>2小時內</span>
-                            <span class="station-count" id="count-2">17</span>
-                        </button>
-                        <button class="filter-btn" data-filter="3">
-                            <span>3小時內</span>
-                            <span class="station-count" id="count-3">26</span>
-                        </button>
-                        <button class="filter-btn" data-filter="4">
-                            <span>4小時內</span>
-                            <span class="station-count" id="count-4">34</span>
-                        </button>
+                <!-- 組合篩選器 -->
+                <div class="combined-filters">
+                    <!-- 時間篩選 - 改為藥丸按鈕 -->
+                    <div class="filter-group">
+                        <div class="filter-group-header">
+                            <h3>旅行時間</h3>
+                            <span class="filter-count" id="time-filter-count">6</span>
+                        </div>
+                        <div class="pill-container">
+                            <button class="pill-btn active" data-filter="all">
+                                全部
+                            </button>
+                            <button class="pill-btn" data-filter="1">
+                                1小時內
+                            </button>
+                            <button class="pill-btn" data-filter="2">
+                                2小時內
+                            </button>
+                            <button class="pill-btn" data-filter="3">
+                                3小時內
+                            </button>
+                            <button class="pill-btn" data-filter="4">
+                                4小時內
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 線路篩選 - 改為藥丸按鈕 -->
+                    <div class="filter-group">
+                        <div class="filter-group-header">
+                            <h3>高鐵路線</h3>
+                            <span class="filter-count" id="line-filter-count">5</span>
+                        </div>
+                        <div class="pill-container">
+                            <button class="pill-btn line-pill active" data-line="all">
+                                全部路線
+                            </button>
+                            <button class="pill-btn line-pill" data-line="main">
+                                <span class="line-dot" style="background: #e31837;"></span>
+                                廣深港主線
+                            </button>
+                            <button class="pill-btn line-pill" data-line="east">
+                                <span class="line-dot" style="background: #00a650;"></span>
+                                東部沿海線
+                            </button>
+                            <button class="pill-btn line-pill" data-line="north">
+                                <span class="line-dot" style="background: #ff6b35;"></span>
+                                北部幹線
+                            </button>
+                            <button class="pill-btn line-pill" data-line="west">
+                                <span class="line-dot" style="background: #ffd200;"></span>
+                                西部幹線
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 線路篩選 -->
-                <div class="filter-group-box">
-                    <h3><span class="filter-icon">🚆</span> 篩選路線</h3>
-                    <div class="filter-options">
-                        <button class="filter-btn line-filter active" data-line="all">
-                            <span>所有路線</span>
-                        </button>
-                        <button class="filter-btn line-filter" data-line="main">
-                            <span>廣深港主線</span>
-                            <span class="line-color-preview" style="background: #e31837;"></span>
-                        </button>
-                        <button class="filter-btn line-filter" data-line="east">
-                            <span>東部沿海線</span>
-                            <span class="line-color-preview" style="background: #00a650;"></span>
-                        </button>
-                        <button class="filter-btn line-filter" data-line="north">
-                            <span>北部幹線</span>
-                            <span class="line-color-preview" style="background: #ff6b35;"></span>
-                        </button>
-                        <button class="filter-btn line-filter" data-line="west">
-                            <span>西部幹線</span>
-                            <span class="line-color-preview" style="background: #ffd200;"></span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 統計資訊 -->
-                <div class="stats-box">
-                    <h3><span class="filter-icon">📊</span> 篩選結果統計</h3>
-                    <div class="stats-info">
-                        <div class="stat-info-item">
-                            <span class="stat-info-label">符合條件車站：</span>
-                            <span class="stat-info-value" id="filtered-count">34</span>
-                        </div>
-                        <div class="stat-info-item">
-                            <span class="stat-info-label">最短時間：</span>
-                            <span class="stat-info-value" id="min-time">0分鐘</span>
-                        </div>
-                        <div class="stat-info-item">
-                            <span class="stat-info-label">最長時間：</span>
-                            <span class="stat-info-value" id="max-time">4小時</span>
-                        </div>
-                        <div class="stat-info-item">
-                            <span class="stat-info-label">平均時間：</span>
-                            <span class="stat-info-value" id="avg-time">2小時3分鐘</span>
-                        </div>
-                    </div>
+                <!-- 活動篩選標籤 -->
+                <div class="active-filters" id="activeFilters">
+                    <!-- 動態生成活動篩選標籤 -->
                 </div>
             </div>
             
@@ -191,8 +179,9 @@
             <div class="result-panel">
                 <div class="result-header">
                     <h2>車站列表</h2>
-                    <div class="result-count">
-                        <span id="result-count-text">顯示 34 個車站</span>
+                    <div class="result-stats">
+                        <span class="result-count" id="resultCount">34</span>
+                        <span class="result-text">個車站</span>
                     </div>
                 </div>
                 
@@ -210,6 +199,5 @@
     </div>
 
     <script src="script2.js"></script>
-
 </body>
 </html>
