@@ -95,42 +95,8 @@ function initMap() {
     const map = document.getElementById('railwayMap');
     
     // 清除現有元素
-    const existingElements = document.querySelectorAll('.rail-line, .station, .station-label');
+    const existingElements = document.querySelectorAll('.station, .station-label');
     existingElements.forEach(el => el.remove());
-    
-    // 繪製線路
-    lines.forEach(line => {
-        const lineStations = stations.filter(s => line.stations.includes(s.id));
-        if (lineStations.length < 2) return;
-        
-        // 創建線路路徑
-        for (let i = 0; i < lineStations.length - 1; i++) {
-            const start = lineStations[i];
-            const end = lineStations[i + 1];
-            
-            const lineEl = document.createElement('div');
-            lineEl.className = 'rail-line';
-            lineEl.style.background = line.color;
-            lineEl.dataset.line = line.id;
-            
-            // 計算線條位置和角度
-            const x1 = start.x;
-            const y1 = start.y;
-            const x2 = end.x;
-            const y2 = end.y;
-            
-            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-            
-            lineEl.style.width = `${length}%`;
-            lineEl.style.left = `${x1}%`;
-            lineEl.style.top = `${y1}%`;
-            lineEl.style.transform = `rotate(${angle}deg)`;
-            lineEl.style.transformOrigin = '0 0';
-            
-            map.appendChild(lineEl);
-        }
-    });
     
     // 繪製車站
     stations.forEach(station => {
@@ -145,16 +111,16 @@ function initMap() {
         
         // 樞紐站更大
         if (station.isHub) {
-            stationEl.style.width = '30px';
-            stationEl.style.height = '30px';
+            stationEl.style.width = '28px';
+            stationEl.style.height = '28px';
             stationEl.style.borderWidth = '4px';
         }
         
         // 車站標籤
         const labelEl = document.createElement('div');
         labelEl.className = 'station-label';
-        labelEl.style.left = `${station.x + 2}%`;
-        labelEl.style.top = `${station.y - 5}%`;
+        labelEl.style.left = `${station.x + 1}%`;
+        labelEl.style.top = `${station.y - 4}%`;
         labelEl.textContent = station.name;
         labelEl.style.borderLeftColor = station.color;
         
@@ -172,8 +138,6 @@ function initMap() {
         });
     });
     
-    // 更新車站計數
-    updateFilterCounts();
     // 渲染車站列表
     renderStationList();
     // 更新活動篩選標籤
@@ -235,23 +199,6 @@ function showStationInfo(station) {
 function hideStationInfo() {
     const infoEl = document.querySelector('.station-info');
     if (infoEl) infoEl.remove();
-}
-
-// 更新篩選計數
-function updateFilterCounts() {
-    // 更新時間篩選計數
-    const timeFilters = [
-        { filter: 'all', count: stations.length },
-        { filter: '1', count: stations.filter(s => s.minutes <= 60).length },
-        { filter: '2', count: stations.filter(s => s.minutes <= 120).length },
-        { filter: '3', count: stations.filter(s => s.minutes <= 180).length },
-        { filter: '4', count: stations.filter(s => s.minutes <= 240).length }
-    ];
-    
-    document.getElementById('time-filter-count').textContent = timeFilters.length;
-    
-    // 更新線路篩選計數
-    document.getElementById('line-filter-count').textContent = lines.length + 1; // +1 為 "全部路線"
 }
 
 // 渲染車站列表
