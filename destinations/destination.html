@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[站名]站完整攻略 | 香港高鐵四小時生活圈</title>
+    <meta name="description" content="從香港西九龍出發，[旅行時間]直達[站名]。完整旅遊攻略包含交通資訊、景點推薦、美食地圖、住宿建議與行程規劃。">
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <!-- 導航欄 (與博客一致) -->
+    <nav class="site-nav">...</nav>
+
+    <!-- 頁面頂部英雄區 -->
+    <section class="destination-hero">
+        <div class="hero-image">
+            <img src="../assets/images/destinations/[站名]-hero.jpg" alt="[站名]">
+            <div class="hero-overlay">
+                <div class="container">
+                    <div class="hero-breadcrumb">
+                        <a href="highspeedrail.html">首頁</a> &gt;
+                        <a href="blog_dest.html">目的地攻略</a> &gt;
+                        <span>[站名]站</span>
+                    </div>
+                    <div class="hero-title">
+                        <h1>[站名]站</h1>
+                        <div class="station-badges">
+                            <span class="badge time">🚄 [旅行時間]</span>
+                            <span class="badge distance">📍 [距離]公里</span>
+                            <span class="badge type">🏢 [樞紐站/中途站]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速資訊欄 -->
+    <section class="quick-info-bar">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">🚉</div>
+                    <div class="info-content">
+                        <span class="info-label">車站名稱</span>
+                        <span class="info-value"> [站名]站</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-content">
+                        <span class="info-label">旅行時間</span>
+                        <span class="info-value"> [旅行時間]</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">💰</div>
+                    <div class="info-content">
+                        <span class="info-label">二等座票價</span>
+                        <span class="info-value"> ¥[票價]</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <span class="info-label">建議停留</span>
+                        <span class="info-value"> [天數]</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🌤️</div>
+                    <div class="info-content">
+                        <span class="info-label">最佳季節</span>
+                        <span class="info-value"> [季節]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 內容導航錨點 -->
+    <div class="content-nav">
+        <div class="container">
+            <div class="anchor-links">
+                <a href="#overview" class="anchor-link active">📋 簡介</a>
+                <a href="#transport" class="anchor-link">🚇 交通</a>
+                <a href="#attractions" class="anchor-link">🏞️ 景點</a>
+                <a href="#food" class="anchor-link">🍜 美食</a>
+                <a href="#accommodation" class="anchor-link">🏨 住宿</a>
+                <a href="#itinerary" class="anchor-link">📅 行程</a>
+                <a href="#tips" class="anchor-link">💡 貼士</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要內容區 - 兩欄布局 -->
+    <main class="destination-main">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- 左側主要內容 -->
+                <article class="main-content">
+                    
+                    <!-- 簡介區塊 -->
+                    <section id="overview" class="content-section">
+                        <h2>📋 [站名] 簡介</h2>
+                        <p class="lead">[站名]站位於[省份][城市]，是[路線名稱]的重要車站，從香港西九龍出發約[旅行時間]可達...</p>
+                        <div class="overview-stats">
+                            <div class="stat-box">
+                                <span class="stat-number">[人口]萬</span>
+                                <span class="stat-label">城市人口</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">[面積]km²</span>
+                                <span class="stat-label">面積</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">[特產]</span>
+                                <span class="stat-label">特產</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">[方言]</span>
+                                <span class="stat-label">方言</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 交通指南 -->
+                    <section id="transport" class="content-section">
+                        <h2>🚇 交通指南</h2>
+                        <div class="transport-tabs">
+                            <div class="tab-buttons">
+                                <button class="tab-btn active" data-tab="from-hk">從香港出發</button>
+                                <button class="tab-btn" data-tab="local">本地交通</button>
+                                <button class="tab-btn" data-tab="to-attractions">前往景點</button>
+                            </div>
+                            <div class="tab-contents">
+                                <!-- 各標籤內容 -->
+                            </div>
+                        </div>
+                        
+                        <!-- 高鐵班次表 -->
+                        <div class="schedule-card">
+                            <h3>每日高鐵班次</h3>
+                            <div class="schedule-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>出發站</th>
+                                            <th>到達站</th>
+                                            <th>首班車</th>
+                                            <th>末班車</th>
+                                            <th>班次間隔</th>
+                                            <th>車程</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>香港西九龍</td>
+                                            <td>[站名]</td>
+                                            <td>[時間]</td>
+                                            <td>[時間]</td>
+                                            <td>[間隔]</td>
+                                            <td>[旅行時間]</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 必訪景點 -->
+                    <section id="attractions" class="content-section">
+                        <h2>🏞️ 必訪景點</h2>
+                        
+                        <!-- 景點網格 -->
+                        <div class="attractions-grid">
+                            <!-- 景點卡片 1 -->
+                            <div class="attraction-card">
+                                <div class="attraction-image">
+                                    <img src="../assets/images/attractions/[景點1].jpg" alt="[景點1]">
+                                    <span class="rating">⭐ 4.8</span>
+                                </div>
+                                <div class="attraction-content">
+                                    <h3>[景點名稱1]</h3>
+                                    <div class="attraction-meta">
+                                        <span>🕒 建議遊覽: [時間]</span>
+                                        <span>💰 門票: ¥[價格]</span>
+                                    </div>
+                                    <p>[景點描述]</p>
+                                    <div class="attraction-tags">
+                                        <span class="tag">#歷史古蹟</span>
+                                        <span class="tag">#拍照打卡</span>
+                                    </div>
+                                    <div class="attraction-footer">
+                                        <span class="transport">🚌 交通: [方式]</span>
+                                        <a href="#" class="map-link">📍 地圖</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 更多景點... -->
+                        </div>
+                        
+                        <!-- 景點地圖 -->
+                        <div class="attractions-map">
+                            <h3>景點分佈圖</h3>
+                            <div class="map-placeholder">
+                                <!-- 這裡可以嵌入Google地圖或靜態地圖 -->
+                                <img src="../assets/images/maps/[站名]-map.jpg" alt="[站名]景點地圖">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 美食推薦 -->
+                    <section id="food" class="content-section">
+                        <h2>🍜 美食地圖</h2>
+                        
+                        <!-- 特色美食 -->
+                        <div class="food-highlight">
+                            <h3>✨ 必吃特色</h3>
+                            <div class="food-grid">
+                                <div class="food-item">
+                                    <img src="../assets/images/food/[美食1].jpg" alt="[美食1]">
+                                    <div class="food-info">
+                                        <h4>[美食名稱]</h4>
+                                        <p>推薦店家: [店家名稱]</p>
+                                        <p>價格: ¥[價格]</p>
+                                    </div>
+                                </div>
+                                <!-- 更多美食... -->
+                            </div>
+                        </div>
+                        
+                        <!-- 美食街推薦 -->
+                        <div class="food-street">
+                            <h3>🥢 美食街/夜市推薦</h3>
+                            <div class="street-card">
+                                <h4>[美食街名稱]</h4>
+                                <p>📍 地址: [地址]</p>
+                                <p>🕒 營業時間: [時間]</p>
+                                <p>🚌 交通: [方式]</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 住宿推薦 -->
+                    <section id="accommodation" class="content-section">
+                        <h2>🏨 住宿推薦</h2>
+                        
+                        <!-- 住宿篩選 -->
+                        <div class="accommodation-filters">
+                            <button class="filter-chip active">全部</button>
+                            <button class="filter-chip">經濟型</button>
+                            <button class="filter-chip">舒適型</button>
+                            <button class="filter-chip">高級型</button>
+                            <button class="filter-chip">近高鐵站</button>
+                        </div>
+                        
+                        <!-- 住宿列表 -->
+                        <div class="accommodation-list">
+                            <!-- 住宿卡片 -->
+                            <div class="accommodation-card">
+                                <div class="acc-image">
+                                    <img src="../assets/images/hotels/[酒店1].jpg" alt="[酒店1]">
+                                    <span class="price-badge">¥[價格]起</span>
+                                </div>
+                                <div class="acc-content">
+                                    <h4>[酒店名稱]</h4>
+                                    <div class="acc-rating">⭐ 4.7 (234則評價)</div>
+                                    <p class="acc-desc">距離高鐵站[X]公里，提供免費接駁...</p>
+                                    <div class="acc-features">
+                                        <span>🚌 接駁</span>
+                                        <span>📶 免費WiFi</span>
+                                        <span>🍳 早餐</span>
+                                    </div>
+                                    <a href="#" class="book-link">查看優惠 →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 行程建議 -->
+                    <section id="itinerary" class="content-section">
+                        <h2>📅 行程建議</h2>
+                        
+                        <div class="itinerary-tabs">
+                            <button class="itinerary-tab active" data-days="1">一日遊</button>
+                            <button class="itinerary-tab" data-days="2">兩日遊</button>
+                            <button class="itinerary-tab" data-days="3">三日遊</button>
+                        </div>
+                        
+                        <!-- 一日遊行程 -->
+                        <div class="itinerary-content active" id="day1">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="time">08:00</div>
+                                    <div class="activity">
+                                        <h4>香港西九龍站出發</h4>
+                                        <p>搭乘高鐵前往[站名]</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">09:30</div>
+                                    <div class="activity">
+                                        <h4>抵達[站名]站</h4>
+                                        <p>前往酒店寄放行李</p>
+                                    </div>
+                                </div>
+                                <!-- 更多行程項目... -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 旅遊貼士 -->
+                    <section id="tips" class="content-section">
+                        <h2>💡 旅遊貼士</h2>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-icon">💰</div>
+                                <h4>預算建議</h4>
+                                <p>一日遊約 ¥[預算]，兩日遊約 ¥[預算]</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">📱</div>
+                                <h4>實用APP</h4>
+                                <p>[APP名稱]、[APP名稱]</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🗣️</div>
+                                <h4>常用短語</h4>
+                                <p>[方言]：[短語]</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">⚠️</div>
+                                <h4>注意事項</h4>
+                                <p>[注意事項]</p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- 右側邊欄 -->
+                <aside class="sidebar">
+                    <!-- 作者資訊 -->
+                    <div class="sidebar-widget author-card">
+                        <div class="author-avatar">
+                            <img src="../assets/images/authors/[作者].jpg" alt="作者">
+                        </div>
+                        <h4>[作者名稱]</h4>
+                        <p>[作者簡介]</p>
+                        <div class="author-stats">
+                            <span>✍️ 15篇文章</span>
+                            <span>📸 23個目的地</span>
+                        </div>
+                    </div>
+
+                    <!-- 旅行摘要卡片 -->
+                    <div class="sidebar-widget summary-card">
+                        <h3>📌 旅行摘要</h3>
+                        <div class="summary-item">
+                            <span>最佳季節</span>
+                            <strong>[季節]</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>建議天數</span>
+                            <strong>[天數]</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>預算範圍</span>
+                            <strong>¥[範圍]</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>適合對象</span>
+                            <strong>[對象]</strong>
+                        </div>
+                        <a href="#" class="download-guide-btn">📥 下載攻略PDF</a>
+                    </div>
+
+                    <!-- 附近車站 -->
+                    <div class="sidebar-widget nearby-stations">
+                        <h3>🚉 附近車站</h3>
+                        <ul>
+                            <li>
+                                <a href="[附近站1].html">
+                                    <span class="station-name">[附近站名1]</span>
+                                    <span class="station-time">[時間]</span>
+                                </a>
+                            </li>
+                            <!-- 更多附近車站... -->
+                        </ul>
+                    </div>
+
+                    <!-- 熱門文章 -->
+                    <div class="sidebar-widget popular-posts">
+                        <h3>🔥 熱門攻略</h3>
+                        <ul>
+                            <li>
+                                <a href="guangzhou-south.html">
+                                    <img src="../assets/images/destinations/guangzhou-thumb.jpg" alt="廣州南">
+                                    <div>
+                                        <span class="post-title">廣州南站完整攻略</span>
+                                        <span class="post-meta">55分鐘 · 2.3k收藏</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- 更多熱門文章... -->
+                        </ul>
+                    </div>
+
+                    <!-- 相關主題 -->
+                    <div class="sidebar-widget related-topics">
+                        <h3>🏷️ 相關主題</h3>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">#高鐵旅遊</a>
+                            <a href="#" class="topic-tag">#[省份]旅遊</a>
+                            <a href="#" class="topic-tag">#[美食]</a>
+                            <a href="#" class="topic-tag">#[景點類型]</a>
+                        </div>
+                    </div>
+
+                    <!-- 廣告/推薦 -->
+                    <div class="sidebar-widget ad-card">
+                        <div class="ad-content">
+                            <span class="ad-label">贊助</span>
+                            <h4>高鐵假期優惠</h4>
+                            <p>酒店+高鐵票組合，低至7折</p>
+                            <a href="#" class="ad-link">查看優惠 →</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- 相關目的地推薦 -->
+    <section class="related-destinations">
+        <div class="container">
+            <h2 class="section-title">🔄 您可能也想造訪</h2>
+            <div class="related-grid">
+                <!-- 動態生成相關目的地卡片 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 留言評論區 -->
+    <section class="comments-section">
+        <div class="container">
+            <h2 class="section-title">💬 旅客留言</h2>
+            <div class="comments-container">
+                <div class="comment-form">
+                    <h3>分享您的經驗</h3>
+                    <form>
+                        <div class="form-row">
+                            <input type="text" placeholder="您的暱稱">
+                            <div class="rating-select">
+                                <span>評分：</span>
+                                <div class="stars">
+                                    ★★★★★
+                                </div>
+                            </div>
+                        </div>
+                        <textarea rows="4" placeholder="寫下您的旅遊經驗、建議或問題..."></textarea>
+                        <button type="submit">送出留言</button>
+                    </form>
+                </div>
+                <div class="comment-list">
+                    <!-- 評論列表 -->
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author">[用戶名]</span>
+                            <span class="comment-date">2024-03-15</span>
+                            <span class="comment-rating">⭐ 5.0</span>
+                        </div>
+                        <p class="comment-content">[評論內容]</p>
+                    </div>
+                    <!-- 更多評論... -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 (與博客一致) -->
+    <footer class="blog-footer">...</footer>
+
+    <script src="destination.js"></script>
+</body>
+</html>

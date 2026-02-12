@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高鐵目的地攻略 | 香港高鐵四小時生活圈</title>
+    <meta name="description" content="探索香港高鐵四小時生活圈內的精彩目的地，涵蓋廣東、福建、江西等地，提供完整旅遊攻略、美食推薦與行程規劃">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="site-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <span class="logo-icon">🚄</span>
+                    <span class="logo-text">香港高鐵生活圈</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">地圖首頁</a>
+                <a href="blog_dest.html" class="nav-link active">目的地攻略</a>
+                <a href="destination/destination.html" class="nav-link">分類</a>
+                <a href="#about" class="nav-link">關於</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="搜尋目的地..." id="blogSearch">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頁面標題區 -->
+    <section class="blog-header">
+        <div class="container">
+            <h1>高鐵目的地攻略</h1>
+            <p class="blog-subtitle">從香港西九龍出發，四小時內抵達的精彩旅程</p>
+            
+            <!-- 快速統計 -->
+            <div class="destination-stats">
+                <div class="stat-chip">
+                    <span class="stat-number">34</span>
+                    <span class="stat-label">個車站</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">個省份</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">篇攻略</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">景點推薦</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分類篩選區 -->
+    <section class="blog-categories">
+        <div class="container">
+            <div class="categories-header">
+                <h2>探索目的地</h2>
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">全部</button>
+                    <button class="category-tab" data-category="hub">樞紐車站</button>
+                    <button class="category-tab" data-category="food">美食之旅</button>
+                    <button class="category-tab" data-category="culture">文化古蹟</button>
+                    <button class="category-tab" data-category="nature">自然風光</button>
+                    <button class="category-tab" data-category="business">商務出行</button>
+                </div>
+            </div>
+            
+            <!-- 快速篩選藥丸 -->
+            <div class="quick-filters">
+                <span class="filter-label">熱門篩選：</span>
+                <button class="filter-pill" data-filter="under1">1小時內</button>
+                <button class="filter-pill" data-filter="under2">2小時內</button>
+                <button class="filter-pill" data-filter="weekend">週末小旅行</button>
+                <button class="filter-pill" data-filter="family">親子同樂</button>
+                <button class="filter-pill" data-filter="budget">經濟實惠</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精選目的地區 -->
+    <section class="featured-destinations">
+        <div class="container">
+            <h2 class="section-title">✨ 編輯精選</h2>
+            <div class="featured-grid">
+                <!-- 精選卡片 1 - 廣州南 -->
+                <div class="featured-card large">
+                    <div class="card-image">
+                        <img src="assets/images/destinations/guangzhou.jpg" alt="廣州">
+                        <span class="time-badge">55分鐘</span>
+                        <span class="featured-badge">精選</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>廣州南</h3>
+                            <span class="station-code">GS</span>
+                        </div>
+                        <div class="card-meta">
+                            <span class="meta-item">🚇 樞紐站</span>
+                            <span class="meta-item">🍜 美食之都</span>
+                            <span class="meta-item">🏛️ 歷史文化</span>
+                        </div>
+                        <p class="card-desc">華南最大高鐵樞紐，一小時直達。從粵式點心到嶺南文化，體驗千年商都的魅力...</p>
+                        <div class="card-footer">
+                            <a href="destinations/guangzhou-south.html" class="read-more">閱讀攻略 →</a>
+                            <span class="save-count">❤️ 2.3k 收藏</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 精選卡片 2 - 廈門北 -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="assets/images/destinations/xiamen.jpg" alt="廈門">
+                        <span class="time-badge">4小時</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>廈門北</h3>
+                        <div class="card-meta">
+                            <span class="meta-item">🌊 海濱城市</span>
+                            <span class="meta-item">🏖️ 鼓浪嶼</span>
+                        </div>
+                        <p>四小時生活圈邊界，文藝與海風的交匯點...</p>
+                        <div class="card-footer">
+                            <a href="destinations/xiamen-north.html" class="read-more">閱讀攻略 →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 精選卡片 3 - 潮汕 -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="assets/images/destinations/chaoshan.jpg" alt="潮汕">
+                        <span class="time-badge">3小時</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>潮汕</h3>
+                        <div class="card-meta">
+                            <span class="meta-item">🍲 美食天堂</span>
+                            <span class="meta-item">🏮 傳統文化</span>
+                        </div>
+                        <p>牛肉火鍋、潮州工夫茶，美食家的朝聖地...</p>
+                        <div class="card-footer">
+                            <a href="destinations/shantou.html" class="read-more">閱讀攻略 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 所有目的地網格 -->
+    <section class="all-destinations">
+        <div class="container">
+            <h2 class="section-title">📍 所有目的地</h2>
+            
+            <!-- 排序和視圖切換 -->
+            <div class="list-controls">
+                <div class="sort-options">
+                    <label>排序：</label>
+                    <select id="sortSelect">
+                        <option value="time-asc">旅行時間 (最短優先)</option>
+                        <option value="time-desc">旅行時間 (最長優先)</option>
+                        <option value="name">車站名稱</option>
+                        <option value="popularity">熱門程度</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">🔲 網格</button>
+                    <button class="view-btn" data-view="list">📋 列表</button>
+                </div>
+            </div>
+            
+            <!-- 目的地網格 -->
+            <div class="destination-grid" id="destinationGrid">
+                <!-- JavaScript 動態生成所有目的地卡片 -->
+            </div>
+            
+            <!-- 載入更多 -->
+            <div class="load-more">
+                <button class="load-more-btn">載入更多目的地</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主題分類區 -->
+    <section class="theme-categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">📚 主題攻略</h2>
+            <div class="theme-grid">
+                <a href="categories/hub-stations.html" class="theme-card">
+                    <div class="theme-icon">🚉</div>
+                    <h3>樞紐車站</h3>
+                    <p>7個主要換乘站</p>
+                    <span class="article-count">12篇文章</span>
+                </a>
+                <a href="categories/food-tourism.html" class="theme-card">
+                    <div class="theme-icon">🍜</div>
+                    <h3>美食之旅</h3>
+                    <p>潮汕、廣州、佛山</p>
+                    <span class="article-count">18篇文章</span>
+                </a>
+                <a href="categories/cultural-heritage.html" class="theme-card">
+                    <div class="theme-icon">🏯</div>
+                    <h3>文化古蹟</h3>
+                    <p>歷史建築、博物館</p>
+                    <span class="article-count">9篇文章</span>
+                </a>
+                <a href="categories/nature-scenery.html" class="theme-card">
+                    <div class="theme-icon">🌳</div>
+                    <h3>自然風光</h3>
+                    <p>山景、海景、公園</p>
+                    <span class="article-count">11篇文章</span>
+                </a>
+                <a href="categories/business-travel.html" class="theme-card">
+                    <div class="theme-icon">💼</div>
+                    <h3>商務出行</h3>
+                    <p>會議中心、商務酒店</p>
+                    <span class="article-count">8篇文章</span>
+                </a>
+                <a href="categories/weekend-getaway.html" class="theme-card">
+                    <div class="theme-icon">🏖️</div>
+                    <h3>週末小旅行</h3>
+                    <p>2-3天行程推薦</p>
+                    <span class="article-count">15篇文章</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅遊指南下載 -->
+    <section class="travel-guide">
+        <div class="container">
+            <div class="guide-banner">
+                <div class="guide-content">
+                    <h2>📥 高鐵旅遊指南下載</h2>
+                    <p>獲取完整的高鐵四小時生活圈目的地攻略，包含所有車站資訊、景點推薦和行程規劃</p>
+                    <div class="guide-formats">
+                        <a href="#" class="guide-btn">PDF 下載</a>
+                        <a href="#" class="guide-btn outline">離線閱讀版</a>
+                    </div>
+                </div>
+                <div class="guide-image">
+                    <img src="assets/images/guide-cover.jpg" alt="旅遊指南">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="blog-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h4>關於我們</h4>
+                    <p>香港高鐵四小時生活圈是一個致力於推廣高鐵旅遊的資訊平台，提供最完整的目的地攻略和行程建議。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="index.html">高鐵地圖</a></li>
+                        <li><a href="blog_dest.html">所有目的地</a></li>
+                        <li><a href="blog.html">熱門攻略</a></li>
+                        <li><a href="blog.html">最新文章</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h4>目的地分類</h4>
+                    <ul>
+                        <li><a href="#">廣東省</a></li>
+                        <li><a href="#">福建省</a></li>
+                        <li><a href="#">江西省</a></li>
+                        <li><a href="#">廣西壯族自治區</a></li>
+                    </ul>
+                </div>
+                <div class="footer-subscribe">
+                    <h4>訂閱更新</h4>
+                    <p>接收最新目的地攻略和優惠資訊</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="您的電子郵件">
+                        <button type="submit">訂閱</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 香港高鐵四小時生活圈. 資料來源：中國鐵路12306</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="destination.js"></script>
+</body>
+</html>
